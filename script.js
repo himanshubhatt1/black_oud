@@ -26,91 +26,90 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(productCenter);
     observer.observe(productRight);
     
-    // Scroll-based bottle movement
+    // Scroll-based animation: move 5th bottle to product position
+    const bannerBottle = document.getElementById('bottle5');
+    const staticBottle = document.getElementById('productBottle');
+    const productCenterElement = document.querySelector('.product-bottle');
+
+    // Ensure initial states
+    // Keep static bottle visible initially; do not hide other content
+
     let ticking = false;
-    
+    let cachedStartCenter = null; // {x,y,w,h}
+
+    function lerp(start, end, t) { return start + (end - start) * t; }
+
+    function getCenter(el) {
+        const rect = el.getBoundingClientRect();
+        return {
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+            w: rect.width,
+            h: rect.height
+        };
+    }
+
     function updateBottlePosition() {
-        const scrollY = window.scrollY;
-        const heroHeight = heroSection.offsetHeight;
-        const productSectionTop = productSection.offsetTop;
-        const productCenterElement = document.querySelector('.product-center');
-        
-        // Hide the static bottle in product section initially
-        const staticBottle = document.querySelector('.product-bottle img');
-        if (staticBottle) {
-            staticBottle.style.opacity = '0';
-        }
-        
-        // Calculate scroll progress (0 to 1)
-        const scrollProgress = Math.min(scrollY / (productSectionTop - heroHeight), 1);
-        
-        if (scrollProgress < 1) {
-            // Bottle is still in hero section - only move vertically
-            floatingBottle.style.position = 'fixed';
-            floatingBottle.style.top = '50%';
-            floatingBottle.style.left = '50%';
-            floatingBottle.style.transform = `translate(-50%, -50%) translateY(${scrollY * 0.5}px)`;
-            floatingBottle.style.opacity = 1 - (scrollProgress * 0.2);
-            floatingBottle.style.zIndex = '9999';
-            floatingBottle.style.display = 'block';
-            
-            // Add subtle rotation based on scroll
-            const rotation = scrollProgress * 3;
-            floatingBottle.style.transform += ` rotate(${rotation}deg)`;
-            
-        } else {
-            // Calculate the transition to product section
-            const transitionProgress = Math.min((scrollY - (productSectionTop - heroHeight)) / heroHeight, 1);
-            
-            if (transitionProgress < 1) {
-                // Smooth vertical transition to product section
-                const productCenterRect = productCenterElement.getBoundingClientRect();
-                const productCenterTop = productCenterRect.top + window.scrollY;
-                
-                // Only move vertically, keep horizontal position centered
-                const startTop = heroHeight / 2;
-                const endTop = productCenterTop;
-                
-                const currentTop = startTop + (endTop - startTop) * transitionProgress;
-                
-                floatingBottle.style.position = 'absolute';
-                floatingBottle.style.top = `${currentTop}px`;
-                floatingBottle.style.left = '50%'; // Always keep centered horizontally
-                floatingBottle.style.transform = 'translate(-50%, -30%)';
-                floatingBottle.style.opacity = 1 - transitionProgress;
-                floatingBottle.style.zIndex = '9999';
-                floatingBottle.style.display = 'block';
-                
-                // Scale down during transition
-                const scale = 1 - (transitionProgress * 0.2);
-                floatingBottle.style.transform += ` scale(${scale})`;
-                
-            } else {
-                // Hide floating bottle and show static bottle in product section
-                floatingBottle.style.opacity = '0';
-                floatingBottle.style.pointerEvents = 'none';
-                floatingBottle.style.display = 'none';
-                
-                // Show the static bottle in product section
-                if (staticBottle) {
-                    staticBottle.style.opacity = '1';
-                    staticBottle.style.transition = 'opacity 0.5s ease-in-out';
-                }
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        const productTop = productSection.offsetTop;
+        const scrollY = window.scrollY + window.innerHeight * 0.5; // viewport center
+
+        // progress from 0 (banner) to 1 (product)
+        const start = heroBottom - window.innerHeight * 0.25;
+        const end = productTop + window.innerHeight * 0.25;
+        const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
+
+        const productTarget = getCenter(productCenterElement);
+
+        if (progress > 0 && progress < 1) {
+            // animate banner bottle
+            if (!cachedStartCenter) {
+                // measure before switching to fixed
+                cachedStartCenter = getCenter(bannerBottle);
             }
+            bannerBottle.classList.add('is-animating');
+            const targetX = productTarget.x;
+            const targetY = productTarget.y;
+
+            const currentX = lerp(cachedStartCenter.x, targetX, progress);
+            const currentY = lerp(cachedStartCenter.y, targetY, progress);
+            const currentScale = lerp(1, productTarget.h / cachedStartCenter.h, progress);
+
+            bannerBottle.style.top = `${currentY}px`;
+            bannerBottle.style.transform = `translate(-50%, -50%) scale(${currentScale})`;
+            bannerBottle.style.left = `${currentX}px`;
+            bannerBottle.style.zIndex = '99999';
+
+            // Do not alter static bottle visibility
+        } else if (progress >= 1) {
+            // lock into product state
+            bannerBottle.classList.add('is-animating');
+            bannerBottle.style.top = `${productTarget.y}px`;
+            bannerBottle.style.left = `${productTarget.x}px`;
+            if (!cachedStartCenter) cachedStartCenter = getCenter(bannerBottle);
+            bannerBottle.style.transform = `translate(-50%, -50%) scale(${productTarget.h / cachedStartCenter.h})`;
+            // Do not alter static bottle visibility
+        } else {
+            // reset to banner row
+            bannerBottle.classList.remove('is-animating');
+            bannerBottle.style.cssText = '';
+            // Do not alter static bottle visibility
+            cachedStartCenter = null;
         }
-        
+
         ticking = false;
     }
-    
-    function requestTick() {
+
+    function onScroll() {
         if (!ticking) {
-            requestAnimationFrame(updateBottlePosition);
+            window.requestAnimationFrame(updateBottlePosition);
             ticking = true;
         }
     }
-    
-    // Scroll event listener
-    window.addEventListener('scroll', requestTick);
+
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+    updateBottlePosition();
     
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
