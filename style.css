@@ -23,7 +23,7 @@ body {
 .video-banner {
     position: relative;
     width: 100%;
-    height: 100vh; /* full screen height */
+    height: 80vh; /* full screen height */
     overflow: hidden;
   }
 
@@ -133,7 +133,10 @@ body {
   font-weight: 400;
   letter-spacing: 1px;
 }
-
+.arrow-heading{
+    display: flex;
+    justify-content: space-between;
+}
 /* Hero Section */
 .hero-section {
   height: 100vh;
