@@ -9,6 +9,8 @@
 
 html {
   scroll-behavior: smooth;
+  -ms-overflow-style: none;
+    scrollbar-width: none; 
 }
 
 body {
@@ -18,7 +20,42 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
 }
+.video-banner {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* full screen height */
+    overflow: hidden;
+  }
 
+  .video-banner video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* cover the whole banner */
+  }
+
+  /* Top fade */
+  .video-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* fade height */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
+
+  /* Bottom fade */
+  .video-banner::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px; /* fade height */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
 /* Header Styles */
 .header {
   /* position: fixed; */
@@ -53,6 +90,7 @@ body {
   font-weight: 400;
   transition: color 0.3s ease;
   position: relative;
+  animation: fadeInUp 1.5s ease-out 0.5s forwards;
 }
 
 .nav-link:hover {
@@ -272,6 +310,11 @@ body {
 .top-picks-slider {
   position: relative;
 }
+.top-picks-slider img {
+    user-select: none;       /* Prevents selecting the image */
+    -webkit-user-drag: none; /* Prevents dragging the image */
+  }
+  
 .tp-viewport {
   overflow: hidden;
 }
@@ -300,10 +343,13 @@ body {
   flex-direction: column;
 }
 .tp-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  
 }
 .tp-meta {
   display: flex;
@@ -403,16 +449,32 @@ body {
 }
 
 .hero-title {
-  font-family: "Playfair Display", serif;
   font-size: 78px;
-  font-style: italic;
   font-weight: 400;
-  color: #d4af37;
+  background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
+  color: transparent;
+  background-clip: text;
   margin-bottom: 3rem;
-  opacity: 0;
+  /* opacity: 0; */
   transform: translateY(50px);
-  animation: fadeInUp 1s ease-out 0.5s forwards;
+  /* animation: fadeInUp 2.6s ease-out 0.5s forwards; */
 }
+.hero-sub-title {
+    font-size: 48px;
+    font-weight: 700;
+    background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
+  color: transparent;
+  background-clip: text;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    /* opacity: 0; */
+    transform: translateY(50px);
+    /* animation: fadeInUp 1.5s ease-out 0.5s forwards; */
+  }
+  .hero-sub-title span{
+    font-style: italic;
+    font-weight: 400;
+  }
 .logo {
   width: 100px;
 }
@@ -665,6 +727,7 @@ body {
   color: transparent;
   background-clip: text;
   margin-bottom: 1rem;
+  /* animation: fadeInUp 2s ease-out 0.5s forwards; */
 }
 .footer h2 span {
   font-weight: 400;
@@ -674,6 +737,7 @@ body {
   font-size: 24px;
   color: #ffffff;
   margin-bottom: 4rem;
+  animation: fadeInUp 2.5s ease-out 0.5s forwards;
 }
 .footer .explore-btn a {
   background: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
@@ -693,6 +757,7 @@ body {
   margin-bottom: 1rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  animation: fadeInUp 2.8s ease-out 0.5s forwards;
 }
 .footer a:hover {
   color: #d4af37;

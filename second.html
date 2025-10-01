@@ -16,7 +16,6 @@
   </style>
 </head>
 <body>
-
     <header class="header">
         <nav class="nav">
             <div class="nav-left">
@@ -33,12 +32,20 @@
         </nav>
     </header>
 
+    <div class="video-banner">
+        <video autoplay muted loop playsinline>
+          <source src="./video/Oud of Emirates - The Essence of Luxury Fragrances.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+
     <section class="hero-section">
         <div class="hero-background">
             <div class="golden-waves" style="transform: translateY(0px);"><img src="images/Wave 1.png" alt="Golden Waves"></div>
         </div>
         
         <div class="hero-content">
+            <h3 class="hero-sub-title">Dubai’s <span>Finest</span></h3>
             <h1 class="hero-title">BLENDED BY YUSUF BHAI</h1>
 
             <!-- Bottles Banner (7 bottles) -->
@@ -48,7 +55,7 @@
                 <img src="./images/bottel-img-3.png" class="bottle" alt="Bottle 3">
                 <img src="./images/bottel-img-4.png" class="bottle" alt="Bottle 4">
                 <img src="./images/bottel-img-5.png" class="bottle" id="bottle5" alt="Bottle 5">
-                <img src="./images/bottel-img-6.png" class="bottle" alt="Bottle 6">
+                <img src="./images/bottel-img-6.png" class="bottle" id="bottle6" alt="Bottle 6">
                 <img src="./images/bottel-img-7.png" class="bottle" alt="Bottle 7">
              </div>
             
@@ -196,8 +203,8 @@
   </section>
   <footer class="footer">
     <div class="container">
-        <h2>Indulge in <span>Luxury </span>Scents</h2>
-        <p>Discover the perfect fragrance to suit your style. Shop our exclusive collection now.</p>
+        <h2 class="footer-title">Indulge in <span>Luxury </span>Scents</h2>
+        <p class="footer-content">Discover the perfect fragrance to suit your style. Shop our exclusive collection now.</p>
         <p class="explore-btn"><a href="#">Explore</a></p>
 
         <div class="privacy-wrapper">
@@ -218,7 +225,7 @@
     gsap.registerPlugin(ScrollTrigger);
   
     window.addEventListener("load", () => {
-      const bottle = document.getElementById("bottle5");
+      const bottle = document.getElementById("bottle6");
       const leftCol = document.getElementById("leftCol");
   
       function animateBottle() {
@@ -310,6 +317,36 @@
           scrollTrigger: {
             trigger: card,
             start: 'top 45%'
+          }
+        });
+      });
+
+      // Hero title 
+      gsap.utils.toArray('.hero-title ,.hero-sub-title').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 84,
+          duration: 0.9,
+          ease: 'power2.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 50%'
+          }
+        });
+      });
+
+      // Footer 
+      gsap.utils.toArray('.footer .footer-title, .footer-content').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 84,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 50%'
           }
         });
       });
