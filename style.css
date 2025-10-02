@@ -904,12 +904,15 @@ body {
   .video-banner {
     height: 65vh;
   }
+  .hero-content {
+    padding: 0 23px;
+}
   .banner {
     flex-wrap: wrap;
     gap: 10px;
   }
   .bottle {
-    max-width: 80px;
+    max-width: 70px;
   }
   .section-two {
     padding: 100px 20px;
