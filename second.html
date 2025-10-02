@@ -54,10 +54,11 @@
              <div class="banner">
                 <img src="./images/bottel-img-1.png" class="bottle" alt="Bottle 1">
                 <img src="./images/bottel-img-2.png" class="bottle" alt="Bottle 2">
-                <img src="./images/bottel-img-4.png" class="bottle" alt="Bottle 3">
+                <img src="./images/bottel-img-5.png" class="bottle" alt="Bottle 3">
                 <img src="./images/bottel-img-3.png" class="bottle" alt="Bottle 4">
                 <img src="./images/bottel-img-6.png" class="bottle" id="bottle5" alt="Bottle 5">
-                <img src="./images/bottel-img-5.png" class="bottle" id="bottle6" alt="Bottle 6">
+                <img src="./images/bottel-img-4.png" class="bottle" id="bottle6" alt="Bottle 6">
+                <img src="./images/bottel-img-4.png" class="bottle" id="bottle6Mob" alt="Bottle 6">
                 <img src="./images/bottel-img-7.png" class="bottle" alt="Bottle 7">
              </div>
             
@@ -67,14 +68,17 @@
 
   <!-- Section 2 -->
   <section class="section-two">
-    <div class="left-col" id="leftCol">
-      <!-- Bottle 5 will move here -->
-    </div>
-    <div class="right-col">
-      <h2 class="arrow-heading">EAU DE PARFUM <span><img src="./images/left-arrow.png"/> <img src="./images/right-arrow.png"/></span></h2>
-      <p>
-        Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.
-      </p>
+    <div class="container">
+        <div class="left-col" id="leftCol">
+            <!-- Bottle 5 will move here -->
+            <img src="./images/bottel-img-4.png" alt="Black Oud Bottle" class="mobile-static-bottle" id="">
+          </div>
+          <div class="right-col">
+            <h2 class="arrow-heading" id="productHeading">EAU DE PARFUM <span><img id="arrowPrev" src="./images/left-arrow.png"/> <img id="arrowNext" src="./images/right-arrow.png"/></span></h2>
+            <p id="productDescription">
+              Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.
+            </p>
+          </div>
     </div>
   </section>
 
@@ -137,7 +141,10 @@
         </div>
     </div>
   </section>
-  <div id="lottie-container" style="width: 100%"></div>
+  <section>
+    <div class="lottie-container">
+        <div id="lottie-container"></div>
+  </section>
 
 
   <section class="best-seller-sec">
@@ -229,39 +236,79 @@
     window.addEventListener("load", () => {
       const bottle = document.getElementById("bottle6");
       const leftCol = document.getElementById("leftCol");
+      const dummyBottle = document.querySelector(".banner .bottle[style*='display: none']"); // your hidden copy
   
       function animateBottle() {
-        ScrollTrigger.getAll().forEach(t => t.kill());
-  
-        const startRect = bottle.getBoundingClientRect();
-        const endRect = leftCol.getBoundingClientRect();
-  
-        const startX = startRect.left + window.scrollX;
-        const startY = startRect.top + window.scrollY;
-        const endX = endRect.left + window.scrollX + endRect.width / 2 - startRect.width / 2;
-        const endY = endRect.top + window.scrollY + endRect.height / 2 - startRect.height / 2;
-  
-        // Reset bottle
-        gsap.set(bottle, { x: 0, y: 0, scale: 1 });
-  
-        // Animate along with page scroll
-        gsap.to(bottle, {
-          x: endX - startX,
-          y: endY - startY,
-          scale: 1.5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".section-two",
-            start: "top bottom",   // when section 2 just starts to enter
-            end: "top center",     // when section 2 reaches center
-            scrub: true,
-            markers: false 
-          }
-        });
+  if (window.innerWidth <= 768) {
+    gsap.killTweensOf(bottle);
+    ScrollTrigger.getAll().forEach(t => t.kill());
+    return;
+  }
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  const startRect = bottle.getBoundingClientRect();
+  const endRect = leftCol.getBoundingClientRect();
+
+  const startX = startRect.left + window.scrollX;
+  const startY = startRect.top + window.scrollY;
+  const endX = endRect.left + window.scrollX + endRect.width / 2 - startRect.width / 2;
+  const endY = endRect.top + window.scrollY + endRect.height / 2 - startRect.height / 2;
+
+  gsap.set(bottle, { x: 0, y: 0, scale: 1 });
+
+  gsap.to(bottle, {
+    x: endX - startX,
+    y: endY - startY,
+    scale: 1.5,
+    ease: "power1.out",
+    scrollTrigger: {
+      trigger: ".section-two",
+      start: "top bottom",
+      end: "top center",
+      scrub: true,
+      once: true,
+      onLeave: () => {
+        // When bottle leaves, show dummy
+        gsap.set(dummyBottle, { display: "block" });
+        gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+        // Keep animated bottle in its new position
+        gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: 1.5 });
       }
+    }
+  });
+}
+
+
   
       animateBottle();
       window.addEventListener("resize", animateBottle);
+
+      function render(state){
+  // Heading + description
+  headingEl.childNodes[0].nodeValue = state.heading + ' ';
+  descriptionEl.textContent = state.description;
+
+  // Update section-two bottle
+  staticBottle.src = state.bottleSrc;
+
+  // Update banner bottle (#bottle6)
+  const bannerBottle = document.getElementById('bottle6');
+  if (bannerBottle) bannerBottle.src = state.bottleSrc;
+
+  // Update Top Picks
+  const cards = Array.from(topPicksTrack.querySelectorAll('.tp-card'));
+  state.topPicks.forEach((item, i) => {
+    const card = cards[i];
+    if (!card) return;
+    card.querySelector('img').src = item.img;
+    card.querySelector('.tp-title').textContent = item.title;
+    card.querySelector('.tp-price').textContent = item.price;
+  });
+
+  gsap.fromTo(staticBottle, {opacity:0.7, scale:0.98}, {opacity:1, scale:1, duration:0.35});
+}
+
+
       
     //   // Page load fades
     //   gsap.set(document.body, { opacity: 0 });
@@ -323,7 +370,7 @@
           delay: i * 0.08,
           scrollTrigger: {
             trigger: card,
-            start: 'top 50%'
+            start: 'top 70%'
           }
         });
       });
@@ -393,6 +440,93 @@
       window.addEventListener('resize', ensureMobileVisibility);
     });
 
+    // Simple 2-slide toggler (Perfume <-> Attar)
+    (function(){
+      const PRODUCT_STATES = [
+        {
+          key: 'perfume',
+          heading: 'EAU DE PARFUM',
+          description: 'Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.',
+          bottleSrc: './images/bottel-img-4.png',
+          topPicks: [
+            {img:'./images/top-picks-img-1.png', title:'Deja Vu', price:'₹3,999/-'},
+            {img:'./images/top-picks-img-2.png', title:'Fairooz', price:'₹3,999/-'},
+            {img:'./images/top-picks-img-3.png', title:'Ombre Eternal', price:'₹4,999/-'},
+            {img:'./images/top-picks-img-4.png', title:'Roohan', price:'₹4,999/-'},
+            {img:'./images/top-picks-img-5.png', title:'Sammaq', price:'₹2,999/-'},
+            {img:'./images/top-picks-img-6.png', title:'Arabian Oud', price:'₹2,999/-'}
+          ]
+        },
+        {
+          key: 'attar',
+          heading: 'ESSENCE OF ATTAR',
+          description: 'Blended with the richness of oud, florals, and precious woods, our attars capture the essence of timeless tradition and luxury. Each fragrance is concentrated and long-lasting, designed to leave an unforgettable aura that resonates with elegance and individuality. Perfect for those who appreciate heritage infused with sophistication.',
+          bottleSrc: './images/bottel-img-1.png',
+          topPicks: [
+            {img:'./images/sabaya.webp', title:'Sabaya', price:'₹999/-'},
+            {img:'./images/chanel-5.webp', title:'Chanel 5', price:'₹999/-'},
+            {img:'./images/4-1.webp', title:'Imperial Valley', price:'₹999/-'},
+            {img:'./images/5.webp', title:'Black Montale', price:'₹999/-'},
+            {img:'./images/13.webp', title:'Sauvage', price:'999/-'},
+            {img:'./images/br-540.webp', title:'BR 540', price:'₹999/-'}
+          ]
+        }
+      ];
+
+      const prevBtn = document.getElementById('arrowPrev');
+      const nextBtn = document.getElementById('arrowNext');
+      const headingEl = document.getElementById('productHeading');
+      const descriptionEl = document.getElementById('productDescription');
+      const staticBottle = document.querySelector('.mobile-static-bottle');
+      const topPicksTrack = document.querySelector('.top-picks-slider .tp-track');
+
+      if (!prevBtn || !nextBtn || !headingEl || !descriptionEl || !staticBottle || !topPicksTrack) return;
+
+      let slideIndex = 0; // 0: perfume, 1: attar
+
+      function render(state){
+        // Update heading text (preserve arrows span)
+        const span = headingEl.querySelector('span');
+        headingEl.childNodes[0].nodeValue = state.heading + ' ';
+
+        descriptionEl.textContent = state.description;
+        // Update bottle image (mobile/static) and banner 5th if present
+        staticBottle.src = state.bottleSrc;
+
+        const bannerBottle5 = document.getElementById('bottle6');
+        if (bannerBottle5) bannerBottle5.src = state.bottleSrc;
+
+        // Update Top Picks cards
+        const cards = Array.from(topPicksTrack.querySelectorAll('.tp-card'));
+        const data = state.topPicks;
+        cards.forEach((card, i)=>{
+          const img = card.querySelector('img');
+          const title = card.querySelector('.tp-title');
+          const price = card.querySelector('.tp-price');
+          if (data[i]){
+            img.src = data[i].img;
+            img.alt = data[i].title;
+            title.textContent = data[i].title;
+            price.textContent = data[i].price;
+          }
+        });
+
+        // small feedback animation
+        // gsap.fromTo(headingEl, {opacity:0, y:8}, {opacity:1, y:0, duration:0.35});
+        gsap.fromTo(staticBottle, {opacity:0.7, scale:0.98}, {opacity:1, scale:1, duration:0.35});
+      }
+
+      function go(delta){
+        slideIndex = (slideIndex + delta + PRODUCT_STATES.length) % PRODUCT_STATES.length;
+        render(PRODUCT_STATES[slideIndex]);
+      }
+
+      prevBtn.addEventListener('click', ()=> go(-1));
+      nextBtn.addEventListener('click', ()=> go(1));
+
+      // init
+      render(PRODUCT_STATES[slideIndex]);
+    })();
     window.addEventListener("load", () => {
   ScrollTrigger.refresh();
 });
