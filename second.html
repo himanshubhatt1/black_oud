@@ -370,6 +370,27 @@
           }
         });
       });
+
+      // Mobile fallback to ensure visibility (avoid elements stuck at opacity 0)
+      function ensureMobileVisibility(){
+        if (window.innerWidth <= 768) {
+          const selectors = [
+            '.top-picks-sec .tp-card',
+            '.best-seller-sec .best-card-col',
+            '.hero-title',
+            '.hero-sub-title',
+            '.footer .footer-title',
+            '.footer .footer-content',
+            '.section-two .right-col > *',
+            '.section-two .left-col'
+          ];
+          selectors.forEach(sel => {
+            gsap.set(sel, { opacity: 1, x: 0, y: 0, clearProps: 'all' });
+          });
+        }
+      }
+      ensureMobileVisibility();
+      window.addEventListener('resize', ensureMobileVisibility);
     });
 
     window.addEventListener("load", () => {

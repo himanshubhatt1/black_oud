@@ -431,6 +431,8 @@ body {
   border-radius: 10px;
   position: relative;
   z-index: 1;
+  opacity: 1; 
+  transform: translateY(0);
 }
 
 .card-row .best-card-col::after {
