@@ -874,7 +874,7 @@ body {
     display: none;
   }
 #bottle6Mob{
-    display: bolock;
+    display: block;
 }
   .tp-track {
     gap: 24px;
