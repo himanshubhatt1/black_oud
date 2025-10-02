@@ -41,7 +41,9 @@
 
     <section class="hero-section">
         <div class="hero-background">
-            <div class="golden-waves" style="transform: translateY(0px);"><img src="images/Wave 1.png" alt="Golden Waves"></div>
+            <div class="golden-waves" style="transform: translateY(0px);">
+                <img src="images/Wave 1.png" alt="Golden Waves">
+            </div>
         </div>
         
         <div class="hero-content">
@@ -316,7 +318,7 @@
           delay: i * 0.08,
           scrollTrigger: {
             trigger: card,
-            start: 'top 45%'
+            start: 'top 50%'
           }
         });
       });
@@ -337,16 +339,29 @@
       });
 
       // Footer 
-      gsap.utils.toArray('.footer .footer-title, .footer-content').forEach((el, i) => {
+      gsap.utils.toArray('.footer .footer-title').forEach((el, i) => {
         gsap.from(el, {
           opacity: 0,
           y: 84,
           duration: 0.8,
           ease: 'power2.out',
+          delay: i * 0.06,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 75%'
+          }
+        });
+      });
+      gsap.utils.toArray('.footer .footer-content').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 54,
+          duration: 1,
+          ease: 'power2.out',
           delay: i * 0.08,
           scrollTrigger: {
             trigger: el,
-            start: 'top 50%'
+            start: 'top 65%'
           }
         });
       });

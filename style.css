@@ -139,7 +139,8 @@ body {
 }
 /* Hero Section */
 .hero-section {
-  height: 100vh;
+  height: 85vh;
+  padding-top: 80px;
   position: relative;
   display: flex;
   align-items: center;
@@ -152,21 +153,20 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  /* background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); */
 }
 
 .golden-waves {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><path d="M0,400 Q300,200 600,400 T1200,400 L1200,800 L0,800 Z" fill="%23d4af37" opacity="0.1"/><path d="M0,500 Q400,300 800,500 T1200,500 L1200,800 L0,800 Z" fill="%23d4af37" opacity="0.05"/></svg>')
-    no-repeat center center;
+  /* background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><path d="M0,400 Q300,200 600,400 T1200,400 L1200,800 L0,800 Z" fill="%23d4af37" opacity="0.1"/><path d="M0,500 Q400,300 800,500 T1200,500 L1200,800 L0,800 Z" fill="%23d4af37" opacity="0.05"/></svg>')
+    no-repeat center center; */
   background-size: cover;
   animation: waveFlow 20s ease-in-out infinite;
 }
-
 @keyframes waveFlow {
   0%,
   100% {
@@ -190,10 +190,12 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .section-two {
-  padding: 50px;
-  height: 90dvh;
+  padding: 100px 50px;
+  margin-top: 240px;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -286,6 +288,12 @@ body {
 }
 .golden-waves img {
   width: 100%;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+  mask-repeat: no-repeat;
+  mask-size: cover;
 }
 .top-picks-sec {
   padding: 8rem 0;
@@ -388,6 +396,7 @@ body {
 }
 /* arrows removed */
 .best-seller-sec {
+  padding: 20px;
   padding-bottom: 7rem;
 }
 .best-seller-sec h2 {
@@ -457,7 +466,7 @@ body {
   background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
   color: transparent;
   background-clip: text;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   /* opacity: 0; */
   transform: translateY(50px);
   /* animation: fadeInUp 2.6s ease-out 0.5s forwards; */
@@ -837,6 +846,73 @@ body {
     position: static;
     margin-top: 2rem;
   }
+  .video-banner {
+    height: 65vh;
+}
+  .banner{
+    flex-wrap: wrap;
+  }
+  .bottle {
+    max-width: 80px;
+  }
+  .section-two {
+    padding: 100px 20px;
+    margin-top: 0;
+    height: 100%;
+    flex-direction: column;
+  }
+  .left-col {
+    width: 100%;
+    min-height: 300px;
+  }
+  .right-col {
+    width: 100%;
+}
+.right-col h2 {
+    font-size: 28px;
+}
+.right-col p {
+    font-size: 20px;
+}
+  .best-seller-sec .card-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.best-seller-sec {
+    padding: 20px;
+}
+.best-seller-sec h2 {
+    font-size: 50px;
+}
+.best-seller-sec h2 span {
+    font-size: 50px;
+}
+.card-row .best-card-col .card-content {
+    padding: 14px;
+    gap: 10px;
+}
+.card-row .best-card-col .card-content p {
+    font-size: 15px;
+}
+.top-picks-sec h2 {
+    font-size: 50px;
+}
+.top-picks-sec h2 span{
+    font-size: 50px;
+}
+.footer h2 {
+    font-size: 50px;
+}
+.footer .privacy-wrapper {
+    gap: 0px;
+    flex-direction: column;
+}
+}
+
+@media (min-width: 768px) and (max-width: 768px) {
+    .bottle {
+        max-width: 100px;
+    }
 }
 
 @media (max-width: 480px) {
