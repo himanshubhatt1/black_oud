@@ -295,17 +295,22 @@
       
       // Top Picks cards
       gsap.utils.toArray('.top-picks-sec .tp-card').forEach((card, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 24,
-          duration: 0.5,
-          ease: 'power2.out',
-          delay: i * 0.05,
-          scrollTrigger: {
+        gsap.fromTo(card,
+        { opacity: 0, y: 24 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            delay: i * 0.05,
+            scrollTrigger: {
             trigger: card,
-            start: 'top 85%'
-          }
-        });
+            start: 'top 90%',
+            toggleActions: "play none none none",
+            once: true
+            }
+        }
+        );
       });
       
       // Best seller cards
@@ -366,6 +371,11 @@
         });
       });
     });
+
+    window.addEventListener("load", () => {
+  ScrollTrigger.refresh();
+});
+
     // Top Picks slider logic
     (function(){
       const slider = document.getElementById('topPicks');

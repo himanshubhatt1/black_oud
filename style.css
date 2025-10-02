@@ -352,6 +352,8 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  opacity: 1; 
+  transform: translateY(0);
 }
 .tp-card img {
     width: 100%;
