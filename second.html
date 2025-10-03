@@ -19,26 +19,38 @@
     <header class="header">
         <nav class="nav">
             <div class="nav-left">
-                <a href="https://oudofemirates.com/
-                " class="nav-link">Home</a>
-                <a href="https://oudofemirates.com/shop
-                " class="nav-link">Shop</a>
-                <a href="#
-                " class="nav-link">About</a>
+                <a href="https://oudofemirates.com/" class="nav-link">Home</a>
+                <a href="https://oudofemirates.com/shop" class="nav-link">Shop</a>
+                <a href="#" class="nav-link">About</a>
             </div>
             <div class="logo">
                 <img src="./images/logo.png" alt="Oud Of Emirates Logo" class="logo">
             </div>
             <div class="nav-right">
-                <a href="https://oudofemirates.com/product-category/perfume/
-                " class="nav-link">Perfume</a>
-                <a href="https://oudofemirates.com/product-category/attar/
-                " class="nav-link">Attar</a>
-                <a href="https://oudofemirates.com/product-category/bakhur/
-                " class="nav-link">Bakhur</a>
-                <a href="https://oudofemirates.com/product-category/diffusers/ " class="nav-link">Diffusers</a>
+                <a href="https://oudofemirates.com/product-category/perfume/" class="nav-link">Perfume</a>
+                <a href="https://oudofemirates.com/product-category/attar/" class="nav-link">Attar</a>
+                <a href="https://oudofemirates.com/product-category/bakhur/" class="nav-link">Bakhur</a>
+                <a href="https://oudofemirates.com/product-category/diffusers/" class="nav-link">Diffusers</a>
             </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </nav>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="https://oudofemirates.com/" class="mobile-nav-link">Home</a>
+                <a href="https://oudofemirates.com/shop" class="mobile-nav-link">Shop</a>
+                <a href="#" class="mobile-nav-link">About</a>
+                <a href="https://oudofemirates.com/product-category/perfume/" class="mobile-nav-link">Perfume</a>
+                <a href="https://oudofemirates.com/product-category/attar/" class="mobile-nav-link">Attar</a>
+                <a href="https://oudofemirates.com/product-category/bakhur/" class="mobile-nav-link">Bakhur</a>
+                <a href="https://oudofemirates.com/product-category/diffusers/" class="mobile-nav-link">Diffusers</a>
+            </div>
+        </div>
     </header>
 
     <div class="video-banner">
@@ -367,29 +379,36 @@ nextBtn.addEventListener('click', () => {
 
 
       function render(state){
-  // Heading + description
-  headingEl.childNodes[0].nodeValue = state.heading + ' ';
-  descriptionEl.textContent = state.description;
+        // Update heading and description with smooth animation
+        gsap.to(headingEl, {opacity: 0, y: 10, duration: 0.2, onComplete: () => {
+          headingEl.textContent = state.heading;
+          gsap.to(headingEl, {opacity: 1, y: 0, duration: 0.3});
+        }});
+        
+        gsap.to(descriptionEl, {opacity: 0, y: 10, duration: 0.2, onComplete: () => {
+          descriptionEl.textContent = state.description;
+          gsap.to(descriptionEl, {opacity: 1, y: 0, duration: 0.3});
+        }});
 
-  // Update section-two bottle
-  staticBottle.src = state.bottleSrc;
+        // Update section-two bottle
+        staticBottle.src = state.bottleSrc;
 
-  // Update banner bottle (#bottle6)
-  const bannerBottle = document.getElementById('bottle6');
-  if (bannerBottle) bannerBottle.src = state.bottleSrc;
+        // Update banner bottle (#bottle6)
+        const bannerBottle = document.getElementById('bottle6');
+        if (bannerBottle) bannerBottle.src = state.bottleSrc;
 
-  // Update Top Picks
-  const cards = Array.from(topPicksTrack.querySelectorAll('.tp-card'));
-  state.topPicks.forEach((item, i) => {
-    const card = cards[i];
-    if (!card) return;
-    card.querySelector('img').src = item.img;
-    card.querySelector('.tp-title').textContent = item.title;
-    card.querySelector('.tp-price').textContent = item.price;
-  });
+        // Update Top Picks
+        const cards = Array.from(topPicksTrack.querySelectorAll('.tp-card'));
+        state.topPicks.forEach((item, i) => {
+          const card = cards[i];
+          if (!card) return;
+          card.querySelector('img').src = item.img;
+          card.querySelector('.tp-title').textContent = item.title;
+          card.querySelector('.tp-price').textContent = item.price;
+        });
 
-  gsap.fromTo(staticBottle, {opacity:0.7, scale:0.98}, {opacity:1, scale:1, duration:0.35});
-}
+        gsap.fromTo(staticBottle, {opacity:0.7, scale:0.98}, {opacity:1, scale:1, duration:0.35});
+      }
 
 
       
@@ -622,6 +641,39 @@ nextBtn.addEventListener('click', () => {
     window.addEventListener("load", () => {
   ScrollTrigger.refresh();
 });
+
+    // Mobile Menu Toggle
+    (function(){
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      if (!mobileMenuToggle || !mobileMenu) return;
+      
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      // Close menu when clicking on links
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuToggle.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Close menu when clicking outside
+      mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+          mobileMenuToggle.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
 
     // Top Picks slider logic
     (function(){
