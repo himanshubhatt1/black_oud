@@ -449,10 +449,11 @@ body {
   font-size: 24px;
   text-decoration: none;
   font-weight: 700;
-  transition: 0.4s ease;
+  transition: 0.4s ease-in-out;
 }
 .tp-btn:hover {
     transform: scale(1.05);
+    background: linear-gradient(90deg, #8a4e00 0%, #cca83d 100%);
 }
 /* arrows removed */
 .best-seller-sec {
@@ -839,10 +840,11 @@ body {
   padding: 1rem 2rem;
   border-radius: 15px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: 0.4s 0.3s ease;
 }
 .footer .explore-btn a:hover {
   transform: scale(1.1);
+  background: linear-gradient(90deg, #6e3e00 0%, #d8a610 100%);
   color: #000000;
 }
 .footer a {
