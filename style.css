@@ -139,8 +139,8 @@ body {
 }
 /* Hero Section */
 .hero-section {
-  height: 85vh;
-  padding-top: 80px;
+  height: 80vh;
+  padding-top: 60px;
   position: relative;
   display: flex;
   align-items: center;
@@ -315,10 +315,10 @@ body {
   mask-size: cover;
 }
 .top-picks-sec {
-  padding: 4rem 0 8rem;
+  padding: 0rem 0 8rem;
 }
 .top-picks-sec h2 {
-  font-size: 80px;
+  font-size: 65px;
   font-weight: 700;
   text-align: center;
   background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
@@ -328,7 +328,7 @@ body {
   animation: fadeInUp 1s ease-out 0.5s forwards;
 }
 .top-picks-sec h2 span {
-  font-size: 80px;
+  font-size: 65px;
   font-weight: 400;
   font-style: italic;
 }
@@ -418,21 +418,21 @@ body {
 }
 /* arrows removed */
 .best-seller-sec {
-  padding: 20px;
-  padding-bottom: 7rem;
+  padding: 0 20px 20px;
+  padding-bottom: 3rem;
 }
 .best-seller-sec h2 {
-  font-size: 80px;
+  font-size: 65px;
   font-weight: 700;
   text-align: center;
   background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
   color: transparent;
   background-clip: text;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   animation: fadeInUp 1s ease-out 0.5s forwards;
 }
 .best-seller-sec h2 span {
-  font-size: 80px;
+  font-size: 65px;
   font-weight: 400;
   font-style: italic;
 }
@@ -453,6 +453,13 @@ body {
   z-index: 1;
   opacity: 1;
   transform: translateY(0);
+  transition: 0.3s ease-in-out;
+}
+.best-card-col a{
+    text-decoration: none;
+}
+.best-card-col:hover{
+    transform: scale(1.06)!important;
 }
 
 .card-row .best-card-col::after {
@@ -490,12 +497,13 @@ body {
   margin: auto;
 }
 .hero-title {
-  font-size: 78px;
+  font-size: 65px;
   font-weight: 400;
   background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
   color: transparent;
   background-clip: text;
   margin-bottom: 4rem;
+  margin-top: -10px;
   /* opacity: 0; */
   transform: translateY(50px);
   /* animation: fadeInUp 2.6s ease-out 0.5s forwards; */
@@ -506,8 +514,6 @@ body {
   background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
   color: transparent;
   background-clip: text;
-  margin-bottom: 10px;
-  margin-top: 30px;
   /* opacity: 0; */
   transform: translateY(50px);
   /* animation: fadeInUp 1.5s ease-out 0.5s forwards; */
