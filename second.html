@@ -19,15 +19,24 @@
     <header class="header">
         <nav class="nav">
             <div class="nav-left">
-                <a href="#" class="nav-link">Home</a>
-                <a href="#" class="nav-link">Products</a>
+                <a href="https://oudofemirates.com/
+                " class="nav-link">Home</a>
+                <a href="https://oudofemirates.com/shop
+                " class="nav-link">Shop</a>
+                <a href="#
+                " class="nav-link">About</a>
             </div>
             <div class="logo">
                 <img src="./images/logo.png" alt="Oud Of Emirates Logo" class="logo">
             </div>
             <div class="nav-right">
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Contact</a>
+                <a href="https://oudofemirates.com/product-category/perfume/
+                " class="nav-link">Perfume</a>
+                <a href="https://oudofemirates.com/product-category/attar/
+                " class="nav-link">Attar</a>
+                <a href="https://oudofemirates.com/product-category/bakhur/
+                " class="nav-link">Bakhur</a>
+                <a href="https://oudofemirates.com/product-category/diffusers/ " class="nav-link">Diffusers</a>
             </div>
         </nav>
     </header>
@@ -56,10 +65,13 @@
                 <img src="./images/bottel-img-2.png" class="bottle" alt="Bottle 2">
                 <img src="./images/bottel-img-5.png" class="bottle" alt="Bottle 3">
                 <img src="./images/bottel-img-3.png" class="bottle" alt="Bottle 4">
-                <img src="./images/bottel-img-6.png" class="bottle" id="bottle5" alt="Bottle 5">
-                <img src="./images/bottel-img-4.png" class="bottle" id="bottle6" alt="Bottle 6">
-                <img src="./images/bottel-img-4.png" class="bottle" id="bottle6Mob" alt="Bottle 6">
-                <img src="./images/bottel-img-7.png" class="bottle" alt="Bottle 7">
+                <img src="./images/bottel-img-6.png" class="bottle hideMob" id="bottle5" alt="Bottle 5">
+                <span class="bottle-img-wrap" style="position: relative;">
+                    <img src="./images/bottel-img-4.png" class="bottle" id="bottle6" alt="Bottle 6">
+                    <img src="./images/bottel-img-4.png" class="bottle" id="bottleDummy" alt="Bottle 6" style="position: absolute; left: 0; top: 0;">
+                    <img src="./images/bottel-img-4.png" class="bottle hideMob" id="bottle6Mob" alt="Bottle 6">
+                </span>
+                <img src="./images/bottel-img-7.png" class="bottle hideMob" alt="Bottle 7">
              </div>
             
         </div>
@@ -68,19 +80,37 @@
 
   <!-- Section 2 -->
   <section class="section-two">
-    <div class="container">
+    <div class="slides-wrapper">
+      <!-- Perfume Slide -->
+      <div class="slide">
         <div class="left-col" id="leftCol">
-            <!-- Bottle 5 will move here -->
             <img src="./images/bottel-img-4.png" alt="Black Oud Bottle" class="mobile-static-bottle" id="">
-          </div>
-          <div class="right-col">
-            <h2 class="arrow-heading" id="productHeading">EAU DE PARFUM <span><img id="arrowPrev" src="./images/left-arrow.png"/> <img id="arrowNext" src="./images/right-arrow.png"/></span></h2>
-            <p id="productDescription">
-              Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.
-            </p>
-          </div>
+        </div>
+        <div class="right-col">
+          <h2 class="arrow-heading product-heading" id="productHeading">EAU DE PARFUM </h2>
+          <p id="productDescription" class="product-description">Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.</p>
+        </div>
+      </div>
+  
+      <!-- Attar Slide -->
+      <div class="slide">
+        <div class="left-col" id="leftCol">
+            <img src="./images/bottel-img-4.png" alt="Black Oud Bottle" class="mobile-static-bottle" >
+        </div>
+        <div class="right-col">
+          <h2 class="arrow-heading product-heading" id="productHeading">ESSENCE OF ATTAR </h2>
+          <p id="productDescription" class="product-description">Blended with the richness of oud, florals, and precious woods, our attars capture the essence of timeless tradition and luxury. Each fragrance is concentrated and long-lasting, designed to leave an unforgettable aura that resonates with elegance and individuality. Perfect for those who appreciate heritage infused with sophistication.</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Arrows -->
+    <div class="arrows">
+      <img id="arrowPrev" src="./images/left-arrow.png"/>
+      <img id="arrowNext" src="./images/right-arrow.png"/>
     </div>
   </section>
+  
 
   <section class="top-picks-sec">
     <div class="">
@@ -250,20 +280,28 @@
     </div>
   </footer>
 
+
   <script>
     gsap.registerPlugin(ScrollTrigger);
   
     window.addEventListener("load", () => {
       const bottle = document.getElementById("bottle6");
       const leftCol = document.getElementById("leftCol");
-      const dummyBottle = document.querySelector(".banner .bottle[style*='display: none']"); // your hidden copy
+      const dummyBottle = document.getElementById("bottleDummy");
   
       function animateBottle() {
+  const bottle = document.getElementById("bottle6");
+  const leftCol = document.getElementById("leftCol");
+  const dummyBottle = document.getElementById("bottleDummy");
+
+  if (!bottle || !leftCol || !dummyBottle) return; // exit if any element is missing
+
   if (window.innerWidth <= 768) {
     gsap.killTweensOf(bottle);
     ScrollTrigger.getAll().forEach(t => t.kill());
     return;
   }
+
   ScrollTrigger.getAll().forEach(t => t.kill());
 
   const startRect = bottle.getBoundingClientRect();
@@ -288,8 +326,8 @@
       scrub: true,
       once: true,
       onLeave: () => {
-        // When bottle leaves, show dummy
-        gsap.set(dummyBottle, { display: "block" });
+         // Fade in dummy bottle in banner
+        gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
         gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
         // Keep animated bottle in its new position
         gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: 1.5 });
@@ -299,9 +337,34 @@
 }
 
 
+
   
       animateBottle();
       window.addEventListener("resize", animateBottle);
+
+      const slidesWrapper = document.querySelector('.slides-wrapper');
+const prevBtn = document.getElementById('arrowPrev');
+const nextBtn = document.getElementById('arrowNext');
+
+let slideIndex = 0;
+const totalSlides = document.querySelectorAll('.slide').length;
+
+slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+function updateSlide() {
+  slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+}
+
+prevBtn.addEventListener('click', () => {
+  slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+  updateSlide();
+});
+
+nextBtn.addEventListener('click', () => {
+  slideIndex = (slideIndex + 1) % totalSlides;
+  updateSlide();
+});
+
 
       function render(state){
   // Heading + description
@@ -462,56 +525,63 @@
 
     // Simple 2-slide toggler (Perfume <-> Attar)
     (function(){
-      const PRODUCT_STATES = [
-        {
-          key: 'perfume',
-          heading: 'EAU DE PARFUM',
-          description: 'Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.',
-          bottleSrc: './images/bottel-img-4.png',
-          topPicks: [
-            {img:'./images/top-picks-img-1.png', title:'Deja Vu', price:'₹3,999/-'},
-            {img:'./images/top-picks-img-2.png', title:'Fairooz', price:'₹3,999/-'},
-            {img:'./images/top-picks-img-3.png', title:'Ombre Eternal', price:'₹4,999/-'},
-            {img:'./images/top-picks-img-4.png', title:'Roohan', price:'₹4,999/-'},
-            {img:'./images/top-picks-img-5.png', title:'Sammaq', price:'₹2,999/-'},
-            {img:'./images/top-picks-img-6.png', title:'Arabian Oud', price:'₹2,999/-'}
-          ]
-        },
-        {
-          key: 'attar',
-          heading: 'ESSENCE OF ATTAR',
-          description: 'Blended with the richness of oud, florals, and precious woods, our attars capture the essence of timeless tradition and luxury. Each fragrance is concentrated and long-lasting, designed to leave an unforgettable aura that resonates with elegance and individuality. Perfect for those who appreciate heritage infused with sophistication.',
-          bottleSrc: './images/bottel-img-1.png',
-          topPicks: [
-            {img:'./images/sabaya.webp', title:'Sabaya', price:'₹999/-'},
-            {img:'./images/chanel-5.webp', title:'Chanel 5', price:'₹999/-'},
-            {img:'./images/4-1.webp', title:'Imperial Valley', price:'₹999/-'},
-            {img:'./images/5.webp', title:'Black Montale', price:'₹999/-'},
-            {img:'./images/13.webp', title:'Sauvage', price:'999/-'},
-            {img:'./images/br-540.webp', title:'BR 540', price:'₹999/-'}
-          ]
-        }
-      ];
+        const PRODUCT_STATES = [
+  {
+    key: 'perfume',
+    heading: 'EAU DE PARFUM',
+    description: 'Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.',
+    bottleSrc: './images/bottel-img-4.png',
+    topPicks: [
+      {img:'./images/top-picks-img-1.png', title:'Deja Vu', price:'₹3,999/-', link:'https://oudofemirates.com/shop/deja-vu/'},
+      {img:'./images/top-picks-img-2.png', title:'Fairooz', price:'₹3,999/-', link:'https://oudofemirates.com/shop/fairooz/'},
+      {img:'./images/top-picks-img-3.png', title:'Ombre Eternal', price:'₹4,999/-', link:'https://oudofemirates.com/shop/ombre-eternal/'},
+      {img:'./images/top-picks-img-4.png', title:'Roohan', price:'₹4,999/-', link:'https://oudofemirates.com/shop/roohan/'},
+      {img:'./images/top-picks-img-5.png', title:'Sammaq', price:'₹2,999/-', link:'https://oudofemirates.com/shop/summaq/'},
+      {img:'./images/top-picks-img-6.png', title:'Arabian Oud', price:'₹2,999/-', link:'https://oudofemirates.com/shop/arabian-oud/'}
+    ]
+  },
+  {
+    key: 'attar',
+    heading: 'ESSENCE OF ATTAR',
+    description: 'Blended with the richness of oud, florals, and precious woods, our attars capture the essence of timeless tradition and luxury. Each fragrance is concentrated and long-lasting, designed to leave an unforgettable aura that resonates with elegance and individuality. Perfect for those who appreciate heritage infused with sophistication.',
+    bottleSrc: './images/bottel-img-1.png',
+    topPicks: [
+      {img:'./images/sabaya.webp', title:'Sabaya', price:'₹999/-', link:'https://oudofemirates.com/shop/sabaya/'},
+      {img:'./images/chanel-5.webp', title:'Chanel 5', price:'₹999/-', link:'https://oudofemirates.com/shop/chanel-5/'},
+      {img:'./images/4-1.webp', title:'Imperial Valley', price:'₹999/-', link:'https://oudofemirates.com/shop/imperial-valley/'},
+      {img:'./images/5.webp', title:'Black Montale', price:'₹999/-', link:'https://oudofemirates.com/shop/black-montale/'},
+      {img:'./images/13.webp', title:'Sauvage', price:'₹999/-', link:'https://oudofemirates.com/shop/sauvage/'},
+      {img:'./images/br-540.webp', title:'BR 540', price:'₹999/-', link:'https://oudofemirates.com/shop/br-540/'}
+    ]
+  }
+];
+
 
       const prevBtn = document.getElementById('arrowPrev');
       const nextBtn = document.getElementById('arrowNext');
       const headingEl = document.getElementById('productHeading');
       const descriptionEl = document.getElementById('productDescription');
-      const staticBottle = document.querySelector('.mobile-static-bottle');
+      let slideIndex = 0;
+      // Inside your render() function:
+      const slides = document.querySelectorAll('.slide');
+
+      const staticBottle = slides[slideIndex].querySelector('.mobile-static-bottle');
+
       const topPicksTrack = document.querySelector('.top-picks-slider .tp-track');
 
       if (!prevBtn || !nextBtn || !headingEl || !descriptionEl || !staticBottle || !topPicksTrack) return;
 
-      let slideIndex = 0; // 0: perfume, 1: attar
+       // 0: perfume, 1: attar
 
-      function render(state){
+      function render(state, currentSlide){
         // Update heading text (preserve arrows span)
         const span = headingEl.querySelector('span');
         headingEl.childNodes[0].nodeValue = state.heading + ' ';
 
         descriptionEl.textContent = state.description;
-        // Update bottle image (mobile/static) and banner 5th if present
-        staticBottle.src = state.bottleSrc;
+       // Get the bottle in the current active slide
+        const staticBottle = slides[slideIndex].querySelector('.mobile-static-bottle');
+        if (staticBottle) staticBottle.src = state.bottleSrc;
 
         const bannerBottle5 = document.getElementById('bottle6');
         if (bannerBottle5) bannerBottle5.src = state.bottleSrc;
@@ -523,11 +593,13 @@
           const img = card.querySelector('img');
           const title = card.querySelector('.tp-title');
           const price = card.querySelector('.tp-price');
+          const btn = card.querySelector('.tp-btn');
           if (data[i]){
             img.src = data[i].img;
             img.alt = data[i].title;
             title.textContent = data[i].title;
             price.textContent = data[i].price;
+            btn.href = data[i].link;
           }
         });
 
