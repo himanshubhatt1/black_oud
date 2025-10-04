@@ -539,7 +539,7 @@ body {
   font-weight: 700;
 }
 .lottie-sec {
-  /* background: url('./images/sec-wave.png')no-repeat bottom; */
+  background: url('./images/sec-wave.png')no-repeat bottom;
   background-size: contain;
 }
 
@@ -548,9 +548,6 @@ body {
   max-width: 1200px;
   margin: auto;
   position: relative;
-}
-#lottie-container g[clip-path^="url(#__lottie_element_534)"] image {
-  display: none !important;
 }
 
 .hero-title {

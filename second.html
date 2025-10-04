@@ -398,7 +398,7 @@ function fadeOut(el, duration = 400) {
       start: "top top",
       end: "+=500",
       scrub: true,
-      once: true,
+    //   once: true,
       onLeave: () => {
          // Fade in dummy bottle in banner
         gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
@@ -802,7 +802,7 @@ function fadeOut(el, duration = 400) {
     })();
   </script>
   <script>
-    fetch("./test.json")
+    fetch("./Artboard.json")
       .then((res) => res.json())
       .then((data) => {
         lottie.loadAnimation({
