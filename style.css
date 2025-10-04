@@ -139,12 +139,12 @@ body {
   display: flex;
   justify-content: space-between;
 }
-.arrow-heading img {
+.arrows img {
   transition: 0.3s ease;
   cursor: pointer;
 }
-.arrow-heading img:hover {
-  transform: scale(1.06);
+.arrows img:hover {
+  transform: scale(1.08);
 }
 /* Hero Section */
 .hero-section {
