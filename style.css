@@ -911,6 +911,7 @@ body {
   width: 100%;
   margin: 0 auto 1rem;
   font-size: 16px;
+  font-family: "Cardo", serif;
   transition: all 0.3s ease;
 }
 
@@ -1141,7 +1142,7 @@ body {
   }
   .tp-card img {
     height: 100%;
-    aspect-ratio: 2 / 2;
+    aspect-ratio: 2 / 3;
   }
   .desc-item {
     position: static;
