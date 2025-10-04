@@ -400,11 +400,11 @@ body {
 }
 
 .tp-arrow img:hover {
-  background: rgba(156, 96, 20, 0.8);
+  filter: blur(0px) brightness(1);
+  background: #4e4519;
   border-radius: 50%;
   transform: scale(1.01);
 }
-
 
 .tp-arrow-prev {
   left: 10px;
@@ -578,7 +578,7 @@ body {
   font-weight: 700;
 }
 .lottie-sec {
-  background: url('./images/sec-wave.png')no-repeat bottom;
+  background: url("./images/sec-wave.png") no-repeat bottom;
   background-size: contain;
 }
 
@@ -1057,7 +1057,6 @@ body {
   justify-content: center;
   height: 100%;
   gap: 25px;
-  padding-top: 1rem;
 }
 
 .mobile-nav-link {
@@ -1124,6 +1123,11 @@ body {
   .mobile-menu-toggle {
     display: flex;
   }
+  .mobile-menu-toggle.active {
+    display: flex;
+    position: absolute;
+    right: 35px;
+  }
 
   .nav {
     display: flex;
@@ -1183,21 +1187,21 @@ body {
   .tp-track {
     gap: 24px;
   }
-  
+
   .tp-arrow {
     width: 40px;
     height: 40px;
   }
-  
+
   .tp-arrow img {
     width: 16px;
     height: 16px;
   }
-  
+
   .tp-arrow-prev {
     left: 5px;
   }
-  
+
   .tp-arrow-next {
     right: 5px;
   }
