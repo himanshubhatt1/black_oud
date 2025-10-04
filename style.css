@@ -500,6 +500,9 @@ body {
 }
 .best-card-col a {
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .best-card-col:hover {
   transform: scale(1.06) !important;
@@ -526,6 +529,7 @@ body {
   justify-content: center;
   padding: 14px;
   padding-top: 0;
+  margin-top: auto;
 }
 .card-row .best-card-col .card-content p {
   background-image: linear-gradient(90deg, #9c6014 0%, #f2d06d 100%);
@@ -534,12 +538,21 @@ body {
   font-size: 18px;
   font-weight: 700;
 }
+.lottie-sec {
+  /* background: url('./images/sec-wave.png')no-repeat bottom; */
+  background-size: contain;
+}
 
 .lottie-container {
   width: 100%;
   max-width: 1200px;
   margin: auto;
+  position: relative;
 }
+#lottie-container g[clip-path^="url(#__lottie_element_534)"] image {
+  display: none !important;
+}
+
 .hero-title {
   font-size: 65px;
   font-weight: 400;
@@ -1054,6 +1067,10 @@ body {
 .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
   transform: rotate(-47deg) translate(8px, -8px);
 }
+.static-bottle-img {
+  max-width: 250px;
+  margin-bottom: 130px;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -1096,13 +1113,16 @@ body {
     gap: 2rem;
     text-align: center;
   }
+  .static-bottle-img {
+    display: none;
+  }
 
   .product-name {
     writing-mode: horizontal-tb;
     text-orientation: initial;
   }
   #bottle6 {
-    display: none;
+    display: none !important;
   }
   .slide {
     flex: 0 0 100%;
@@ -1245,12 +1265,12 @@ body {
   .footer .footer-copyright-text {
     margin-top: 2rem;
   }
-  
+
   /* Hide desktop privacy wrapper on mobile */
   .privacy-wrapper.desktop-privacy {
     display: none;
   }
-  
+
   /* Show mobile quick links dropdown on mobile */
   .mobile-quick-links {
     display: block;
@@ -1284,6 +1304,6 @@ body {
 
 @media (max-width: 767px) {
   .hideMob {
-    display: none;
+    display: none !important;
   }
 }

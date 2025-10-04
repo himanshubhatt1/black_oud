@@ -80,7 +80,7 @@
                 <img src="./images/bottel-img-6.png" class="bottle hideMob" id="bottle5" alt="Bottle 5">
                 <span class="bottle-img-wrap" style="position: relative;">
                     <img src="./images/bottel-img-4.png" class="bottle" id="bottle6" alt="Bottle 6">
-                    <img src="./images/bottel-img-4.png" class="bottle" id="bottleDummy" alt="Bottle 6" style="position: absolute; left: 0; top: 0;">
+                    <img src="./images/bottel-img-4.png" class="bottle hideMob" id="bottleDummy" alt="Bottle 6" style="display: none; left: 0; top: 0;">
                     <img src="./images/bottel-img-4.png" class="bottle hideMob" id="bottle6Mob" alt="Bottle 6">
                 </span>
                 <img src="./images/bottel-img-7.png" class="bottle hideMob" alt="Bottle 7">
@@ -108,6 +108,7 @@
       <div class="slide">
         <div class="left-col" id="leftCol">
             <img src="./images/bottel-img-4.png" alt="Black Oud Bottle" class="mobile-static-bottle" >
+            <img src="./images/bottel-img-1.png" alt="Black Oud Bottle"  class="static-bottle-img bottle">
         </div>
         <div class="right-col">
           <h2 class="arrow-heading product-heading" id="productHeading">ESSENCE OF ATTAR </h2>
@@ -181,7 +182,7 @@
         </div>
     </div>
   </section>
-  <section>
+  <section class="lottie-sec">
     <div class="lottie-container">
         <div id="lottie-container"></div>
   </section>
@@ -202,7 +203,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/amira/">
-                <img src="./images/card-img-2.png"/>
+                <img src="./images/Amira.png"/>
                 <div class="card-content">
                     <p>Amira</p>
                 </div>
@@ -210,7 +211,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/fairooz/">
-                <img src="./images/card-img-4.png"/>
+                <img src="./images/Fairooz.png"/>
                 <div class="card-content">
                     <p>Fairooz</p>
                 </div>
@@ -218,7 +219,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/roohan/">
-                <img src="./images/card-img-3.png"/>
+                <img src="./images/Roohan.png"/>
                 <div class="card-content">
                     <p>Roohan</p>
                 </div>
@@ -226,7 +227,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/dylan-blue-men/">
-                <img src="./images/card-img-5.png"/>
+                <img src="./images/Dylan Blue Men.png"/>
                 <div class="card-content">
                     <p>Dylan Blue Men</p>
                 </div>
@@ -234,7 +235,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/imperial-valley/">
-                <img src="./images/card-img-8.png"/>
+                <img src="./images/Imperial Valley.png"/>
                 <div class="card-content">
                     <p>Imperial Valley</p>
                 </div>
@@ -242,7 +243,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/madawi/">
-                <img src="./images/card-img-6.png"/>
+                <img src="./images/Madawi.png"/>
                 <div class="card-content">
                     <p>Madawi</p>
                 </div>
@@ -250,7 +251,7 @@
             </div>
             <div class="best-card-col">
                 <a href="https://oudofemirates.com/shop/mukhallat/">
-                <img src="./images/card-img-7.png"/>
+                <img src="./images/Mukhallat.png"/>
                 <div class="card-content">
                     <p>Mukhallat</p>
                 </div>
@@ -301,13 +302,73 @@
       const bottle = document.getElementById("bottle6");
       const leftCol = document.getElementById("leftCol");
       const dummyBottle = document.getElementById("bottleDummy");
+      const slidesWrapper = document.querySelector('.slides-wrapper');
+      const prevBtn = document.getElementById('arrowPrev');
+      const nextBtn = document.getElementById('arrowNext');
+
+      let slideIndex = 0;
+      const totalSlides = document.querySelectorAll('.slide').length;
+
+      slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+      function updateSlide() {
+        slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+        if (slideIndex === 1) {  // Attar slide
+         dummyBottle.style.display = "block";
+         bottle.style.display = "none";
+         fadeInWithDelay(dummyBottle, 500, 800);
+        } else {
+         dummyBottle.style.display = "none";
+         bottle.style.display = "block";
+         fadeInWithDelay(bottle, 500, 800);
+
+        }
+      }
+
+      function fadeInWithDelay(el, delay = 300, duration = 600) {
+  if (!el) return;
+
+  // Start hidden
+  el.style.opacity = 0;
+  el.style.display = 'block';
+  el.style.transition = `opacity ${duration}ms ease`;
+
+  // Trigger fade after delay
+  setTimeout(() => {
+    el.style.opacity = 1;
+  }, delay);
+}
+
+function fadeOut(el, duration = 400) {
+  if (!el) return;
+
+  el.style.transition = `opacity ${duration}ms ease`;
+  el.style.opacity = 0;
+
+  const handler = () => {
+    el.style.display = 'none';
+    el.removeEventListener('transitionend', handler);
+  };
+
+  el.addEventListener('transitionend', handler);
+}
+
+
+      prevBtn.addEventListener('click', () => {
+        slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+        updateSlide();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        slideIndex = (slideIndex + 1) % totalSlides;
+        updateSlide();
+      });
   
       function animateBottle() {
   const bottle = document.getElementById("bottle6");
   const leftCol = document.getElementById("leftCol");
-  const dummyBottle = document.getElementById("bottleDummy");
 
-  if (!bottle || !leftCol || !dummyBottle) return; // exit if any element is missing
+  if (!bottle || !leftCol) return; // exit if any element is missing
 
   if (window.innerWidth <= 768) {
     gsap.killTweensOf(bottle);
@@ -331,17 +392,17 @@
     x: endX - startX,
     y: endY - startY,
     scale: 1.5,
-    ease: "power1.out",
+    ease: "none",
     scrollTrigger: {
-      trigger: ".section-two",
-      start: "top bottom",
-      end: "top center",
+      trigger: ".hero-sub-title",
+      start: "top top",
+      end: "+=500",
       scrub: true,
       once: true,
       onLeave: () => {
          // Fade in dummy bottle in banner
         gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
-        gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+        // gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
         // Keep animated bottle in its new position
         gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: 1.5 });
       }
@@ -354,29 +415,6 @@
   
       animateBottle();
       window.addEventListener("resize", animateBottle);
-
-      const slidesWrapper = document.querySelector('.slides-wrapper');
-const prevBtn = document.getElementById('arrowPrev');
-const nextBtn = document.getElementById('arrowNext');
-
-let slideIndex = 0;
-const totalSlides = document.querySelectorAll('.slide').length;
-
-slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
-
-function updateSlide() {
-  slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
-}
-
-prevBtn.addEventListener('click', () => {
-  slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
-  updateSlide();
-});
-
-nextBtn.addEventListener('click', () => {
-  slideIndex = (slideIndex + 1) % totalSlides;
-  updateSlide();
-});
 
 
       function render(state){
