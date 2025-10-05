@@ -597,7 +597,8 @@ function fadeOut(el, duration = 400) {
             '.footer .footer-title',
             '.footer .footer-content',
             '.section-two .right-col > *',
-            '.section-two .left-col'
+            '.section-two .left-col',
+            '.lottie-sec'
           ];
           selectors.forEach(sel => {
             gsap.set(sel, { opacity: 1, x: 0, y: 0, clearProps: 'all' });
