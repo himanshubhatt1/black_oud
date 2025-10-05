@@ -39,6 +39,11 @@
                 <a href="https://oudofemirates.com/product-category/bakhur/" class="nav-link">Bakhoor & Burners</a>
                 <a href="https://oudofemirates.com/product-category/diffusers/" class="nav-link">Diffusers</a>
             </div>
+            <div class="mobile-cart-icon">
+                <a href="#">
+                    <img src="./images/online-shopping.png" alt="cart" srcset="">
+                </a>
+            </div>
         </nav>
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
@@ -822,146 +827,71 @@ function fadeOut(el, duration = 400) {
       });
   </script>
 
-   <script>
-      // Top Picks Slider with Infinite Loop
-      const topPicksSlider = document.getElementById('topPicks');
-     const tpTrack = document.getElementById('tpTrack');
-     const tpPrev = document.getElementById('tpPrev');
-     const tpNext = document.getElementById('tpNext');
-     
-     if (topPicksSlider && tpTrack && tpPrev && tpNext) {
-         let currentIndex = 0;
-         let isAnimating = false;
-         const cards = tpTrack.querySelectorAll('.tp-card');
-         const totalCards = cards.length;
-         
-         // Clone cards for infinite loop
-         const firstCard = cards[0].cloneNode(true);
-         const lastCard = cards[totalCards - 1].cloneNode(true);
-         
-         tpTrack.appendChild(firstCard);
-         tpTrack.insertBefore(lastCard, cards[0]);
-         
-         // Wait for layout to complete, then get card width
-         setTimeout(() => {
-             const cardWidth = cards[0].offsetWidth + 35; // card width + gap
-             
-             // Set initial position (showing the first real card, not the cloned one)
-             tpTrack.style.transform = `translateX(-${cardWidth}px)`;
-             
-             // Update the slideToIndex function to use the correct cardWidth
-             window.slideToIndex = function(index, direction = 'next') {
-                 if (isAnimating) return;
-                 isAnimating = true;
-                 
-                 const targetX = -(index + 1) * cardWidth;
-                 tpTrack.style.transform = `translateX(${targetX}px)`;
-                 
-                 setTimeout(() => {
-                     if (direction === 'next' && index >= totalCards) {
-                         // Reset to first card without animation
-                         tpTrack.style.transition = 'none';
-                         tpTrack.style.transform = `translateX(-${cardWidth}px)`;
-                         currentIndex = 0;
-                     } else if (direction === 'prev' && index < 0) {
-                         // Reset to last card without animation
-                         tpTrack.style.transition = 'none';
-                         tpTrack.style.transform = `translateX(-${totalCards * cardWidth}px)`;
-                         currentIndex = totalCards - 1;
-                     } else {
-                         currentIndex = index;
-                     }
-                     
-                     // Re-enable transitions
-                     setTimeout(() => {
-                         tpTrack.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                         isAnimating = false;
-                     }, 50);
-                 }, 500);
-             };
-         }, 100);
-         
-         // Next button
-         tpNext.addEventListener('click', () => {
-             if (isAnimating) return;
-             const nextIndex = currentIndex + 1;
-             if (window.slideToIndex) {
-                 window.slideToIndex(nextIndex, 'next');
-             }
-         });
-         
-         // Previous button
-         tpPrev.addEventListener('click', () => {
-             if (isAnimating) return;
-             const prevIndex = currentIndex - 1;
-             if (window.slideToIndex) {
-                 window.slideToIndex(prevIndex, 'prev');
-             }
-         });
-         
-         // Touch/swipe support
-         let startX = 0;
-         let startY = 0;
-         let isDragging = false;
-         
-         tpTrack.addEventListener('touchstart', (e) => {
-             startX = e.touches[0].clientX;
-             startY = e.touches[0].clientY;
-             isDragging = true;
-         });
-         
-         tpTrack.addEventListener('touchmove', (e) => {
-             if (!isDragging) return;
-             e.preventDefault();
-         });
-         
-         tpTrack.addEventListener('touchend', (e) => {
-             if (!isDragging) return;
-             isDragging = false;
-             
-             const endX = e.changedTouches[0].clientX;
-             const endY = e.changedTouches[0].clientY;
-             const diffX = startX - endX;
-             const diffY = startY - endY;
-             
-             // Only trigger if horizontal swipe is more significant than vertical
-             if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                 if (diffX > 0) {
-                     // Swipe left - next
-                     tpNext.click();
-                 } else {
-                     // Swipe right - previous
-                     tpPrev.click();
-                 }
-             }
-         });
-         
-         // Auto-play functionality (optional)
-         let autoPlayInterval;
-         
-         function startAutoPlay() {
-             autoPlayInterval = setInterval(() => {
-                 tpNext.click();
-             }, 5000); // Change slide every 5 seconds
-         }
-         
-         function stopAutoPlay() {
-             if (autoPlayInterval) {
-                 clearInterval(autoPlayInterval);
-             }
-         }
-         
-         // Start auto-play
-         startAutoPlay();
-         
-         // Pause auto-play on hover
-         topPicksSlider.addEventListener('mouseenter', stopAutoPlay);
-         topPicksSlider.addEventListener('mouseleave', startAutoPlay);
-         
-         // Pause auto-play when user interacts
-         tpPrev.addEventListener('click', stopAutoPlay);
-         tpNext.addEventListener('click', stopAutoPlay);
-     }
-   </script>
+<script>
+    const topPicksSlider = document.getElementById('topPicks');
+    const tpTrack = document.getElementById('tpTrack');
+    const tpPrev = document.getElementById('tpPrev');
+    const tpNext = document.getElementById('tpNext');
+  
+    if (topPicksSlider && tpTrack && tpPrev && tpNext) {
+      let currentIndex = 0;
+      const cards = tpTrack.querySelectorAll('.tp-card');
+      const totalCards = cards.length;
+  
+      // spacing (card width + gap)
+      const cardWidth = cards[0].offsetWidth + 35;
+  
+      function slideToIndex(index) {
+        if (index < 0) index = 0; // stop at first card
+        if (index >= totalCards) index = totalCards - 1; // stop at last card
+        currentIndex = index;
+  
+        tpTrack.style.transition = 'transform 0.5s ease';
+        tpTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+      }
+  
+      // Next button
+      tpNext.addEventListener('click', () => {
+        if(currentIndex < 3){
+          slideToIndex(currentIndex + 1);
+        }else{
+          slideToIndex(0);
+        }
+      });
+  
+      // Previous button
+      tpPrev.addEventListener('click', () => {
+        slideToIndex(currentIndex - 1);
+      });
+  
+      // Touch/swipe support
+      let startX = 0;
+      let isDragging = false;
+  
+      tpTrack.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+  
+      tpTrack.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+  
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+  
+        if (Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+            // swipe left
+            slideToIndex(currentIndex + 1);
+          } else {
+            // swipe right
+            slideToIndex(currentIndex - 1);
+          }
+        }
+      });
+    }
+  
+  </script>
 </body>
 </html>
