@@ -1203,7 +1203,7 @@ body {
   }
   .slides-wrapper {
     justify-content: space-between;
-    gap: 10px;
+    gap: 0px;
   }
   .arrows {
     position: absolute;
@@ -1298,9 +1298,11 @@ body {
   /* #bottle5, #bottle6 { display: none !important; } */
   .right-col {
     width: 100%;
+    text-align: center;
   }
   .right-col h2 {
     font-size: 25px;
+    justify-content: center;
   }
   .right-col p {
     font-size: 16px;
@@ -1384,10 +1386,10 @@ body {
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 24px;
+    font-size: 23px;
   }
   .hero-sub-title {
-    font-size: 40px;
+    font-size: 38px;
   }
 
   .bottle-container {
