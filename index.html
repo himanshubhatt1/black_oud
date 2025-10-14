@@ -1,101 +1,902 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Oud - Oud Of Emirates</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oud of Emirates</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="nav">
             <div class="nav-left">
-                <a href="#" class="nav-link">Home</a>
-                <a href="#" class="nav-link">Products</a>
+                <a href="https://oudofemirates.com/" class="nav-link">Home</a>
+                <a href="https://oudofemirates.com/shop" class="nav-link">Shop</a>
+                <a href="https://oudofemirates.com/about-us/" class="nav-link">About</a>
+                <a href="https://oudofemirates.com/contact" class="nav-link">Contact</a>
             </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <div class="logo">
-                <img src="images/logo.png" alt="Oud Of Emirates Logo" class="logo">
+                <img src="./images/logo.png" alt="Oud Of Emirates Logo" class="logo">
             </div>
             <div class="nav-right">
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Contact</a>
+                <a href="https://oudofemirates.com/product-category/perfume/" class="nav-link">Perfumes</a>
+                <a href="https://oudofemirates.com/product-category/attar/" class="nav-link">Attar</a>
+                <a href="https://oudofemirates.com/product-category/bakhur/" class="nav-link">Bakhoor & Burners</a>
+                <a href="https://oudofemirates.com/product-category/diffusers/" class="nav-link">Diffusers</a>
+            </div>
+            <div class="mobile-cart-icon">
+                <a href="https://oudofemirates.com/cart/"> <img src="./images/market.png" alt="cart" srcset=""> </a>
             </div>
         </nav>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="https://oudofemirates.com/" class="mobile-nav-link">Home</a>
+                <a href="https://oudofemirates.com/shop" class="mobile-nav-link">Shop</a>
+                <a href="https://oudofemirates.com/about-us/" class="mobile-nav-link">About</a>
+                <a href="https://oudofemirates.com/product-category/perfume/" class="mobile-nav-link">Perfume</a>
+                <a href="https://oudofemirates.com/product-category/attar/" class="mobile-nav-link">Attar</a>
+                <a href="https://oudofemirates.com/product-category/bakhur/" class="mobile-nav-link">Bakhur</a>
+                <a href="https://oudofemirates.com/product-category/diffusers/" class="mobile-nav-link">Diffusers</a>
+            </div>
+        </div>
     </header>
 
-    <!-- Hero Section -->
+    <div class="video-banner">
+        <video autoplay muted loop playsinline>
+          <source src="./video/Oud of Emirates - The Essence of Luxury Fragrances.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+
     <section class="hero-section">
         <div class="hero-background">
-            <div class="golden-waves"><img src="images/Wave 1.png" alt="Golden Waves"></div>
+            <div class="golden-waves" style="transform: translateY(0px);">
+                <img src="./images/Wave 1.png" alt="Golden Waves">
+            </div>
         </div>
         
         <div class="hero-content">
+            <h3 class="hero-sub-title">Dubai’s <span>Finest</span></h3>
             <h1 class="hero-title">BLENDED BY YUSUF BHAI</h1>
 
             <!-- Bottles Banner (7 bottles) -->
-            <div class="bottles-row" aria-label="Fragrance lineup">
-                <img id="bottle1" class="bottle" src="images/bottel-img-1.png" alt="Bottle 1">
-                <img id="bottle2" class="bottle" src="images/bottel-img-2.png" alt="Bottle 2">
-                <img id="bottle3" class="bottle" src="images/bottel-img-3.png" alt="Bottle 3">
-                <img id="bottle4" class="bottle" src="images/bottel-img-4.png" alt="Bottle 4">
-                <img id="bottle5" class="bottle focus-bottle" src="images/bottel-img-5.png" alt="Bottle 5 (Black Oud)">
-                <img id="bottle6" class="bottle" src="images/bottel-img-6.png" alt="Bottle 6">
-                <img id="bottle7" class="bottle" src="images/bottel-img-7.png" alt="Bottle 7">
-            </div>
-
-            <!-- Descriptive Text -->
-            <!-- <div class="hero-descriptions">
-                <div class="desc-item desc-left-top">
-                    <p class="desc-label">Long Lasting <span class="desc-highlight">Arina</span></p>
-                    
-                </div>
-                <div class="desc-item desc-left-bottom">
-                    <p class="desc-label">Timeless Oud <span class="desc-highlight">Elegance</span></p>
-                    
-                </div>
-                <div class="desc-item desc-right-top">
-                    <p class="desc-label">The Essence of <span class="desc-highlight">Arabia</span></p>
-                    
-                </div>
-                <div class="desc-item desc-right-bottom">
-                    <p class="desc-label">Handcrafted <span class="desc-highlight">Perfection</span></p>
-                    
-                </div>
-            </div> -->
+             <div class="banner">
+                <img src="./images/bottel-img-1.png" class="bottle" alt="Bottle 1">
+                <img src="./images/bottel-img-2.png" class="bottle" alt="Bottle 2">
+                <img src="./images/bottel-img-5.png" class="bottle" alt="Bottle 3">
+                <img src="./images/bottel-img-3.png" class="bottle" alt="Bottle 4">
+                <img src="./images/bottel-img-6.png" class="bottle hideMob" id="bottle5" alt="Bottle 5">
+                <span class="bottle-img-wrap" style="position: relative;">
+                    <img src="./images/bottel-img-4.png" class="bottle" id="bottle6" alt="Bottle 6">
+                    <img src="./images/bottel-img-4.png" class="bottle" id="bottleDummy" alt="Bottle 6" style="display: none; left: 0; top: 0;">
+                    <img src="./images/bottel-img-4.png" class="bottle hideMob" id="bottle6Mob" alt="Bottle 6">
+                </span>
+                <img src="./images/bottel-img-7.png" class="bottle hideMob" alt="Bottle 7">
+             </div>
+            
         </div>
     </section>
+  <!-- Section 1 -->
 
-    <!-- Product Details Section -->
-    <section class="product-section">
-        <div class="product-content">
-            <div class="product-left">
-                <div class="product-brand">Oud Of Emirates</div>
-                <div class="product-type">EAU DE PARFUM</div>
-                <div class="product-name">BLACK OUD</div>
-                <div class="product-tagline">Crafted for those who desire distinction</div>
-            </div>
-            
-            <div class="product-center">
-                <div class="product-bottle">
-                    <img src="images/Oud of Emirates (Products) 1.png" alt="Black Oud Bottle">
+  <!-- Section 2 -->
+  <section class="section-two">
+    <div class="slides-wrapper">
+      <!-- Perfume Slide -->
+      <div class="slide">
+        <div class="left-col" id="leftCol">
+            <img src="./images/bottel-img-4.png" alt="Black Oud Bottle" class="mobile-static-bottle" id="">
+        </div>
+        <div class="right-col">
+          <h2 class="arrow-heading product-heading" id="productHeading">EAU DE PARFUM </h2>
+           <p id="productDescription" class="product-description desktop-view">Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions. </p>
+          <p id="productDescription" class="product-description mobile-view">Exquisitely crafted with oud, florals, spices, and woods, our perfumes exude luxury, sophistication, and timeless allure for every occasion.</p>
+        </div>
+      </div>
+  
+      <!-- Attar Slide -->
+      <div class="slide">
+        <div class="left-col" id="leftCol">
+            <img src="./images/bottel-img-4.png" alt="Black Oud Bottle" class="mobile-static-bottle" >
+            <img src="./images/bottel-img-1.png" alt="Black Oud Bottle"  class="static-bottle-img bottle">
+        </div>
+        <div class="right-col">
+          <h2 class="arrow-heading product-heading" id="productHeading">ESSENCE OF ATTAR </h2>
+          <p id="productDescription" class="product-description desktop-view">Blended with the richness of oud, florals, and precious woods, our attars capture the essence of timeless tradition and luxury. Each fragrance is concentrated and long-lasting, designed to leave an unforgettable aura that resonates with elegance and individuality. Perfect for those who appreciate heritage infused with sophistication.</p>
+          <p id="productDescription" class="product-description mobile-view">Blended with rich oud, florals, and woods, our attars embody timeless tradition, luxury, and enduring elegance with sophistication.</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Arrows -->
+    <div class="arrows">
+      <img id="arrowPrev" src="./images/left-arrow.png"/>
+      <img id="arrowNext" src="./images/right-arrow.png"/>
+    </div>
+  </section>
+  
+
+  <section class="top-picks-sec">
+    <div class="">
+        <h2>Top <span>Picks</span></h2>
+        <div class="top-picks-slider" id="topPicks">
+          <button class="tp-arrow tp-arrow-prev" id="tpPrev">
+            <img src="./images/left-arrow.png" alt="Previous">
+          </button>
+          <button class="tp-arrow tp-arrow-next" id="tpNext">
+            <img src="./images/right-arrow.png" alt="Next">
+          </button>
+          <div class="tp-viewport">
+            <div class="tp-track" id="tpTrack">
+              <div class="tp-card">
+                <img src="./images/top-picks-img-1.png" alt="Deja Vu">
+                <div class="tp-meta">
+                  <div class="tp-title">Deja Vu</div>
+                  <!-- <div class="tp-price">₹3,999/-</div> -->
                 </div>
-            </div>
-            
-            <div class="product-right">
-                <h2 class="product-title">Black Oud Luxury</h2>
-                <p class="product-description">
-                    Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.
-                </p>
-                <div class="product-navigation">
-                    <button class="nav-arrow nav-arrow-left">←</button>
-                    <button class="nav-arrow nav-arrow-right">→</button>
+                <a class="tp-btn" href="https://oudofemirates.com/shop/deja-vu/">Buy Now</a>
+              </div>
+              <div class="tp-card">
+                <img src="./images/top-picks-img-2.png" alt="Fairooz">
+                <div class="tp-meta">
+                  <div class="tp-title">Fairooz</div>
                 </div>
+                <a class="tp-btn" href="https://oudofemirates.com/shop/fairooz/">Buy Now</a>
+              </div>
+              <div class="tp-card">
+                <img src="./images/top-picks-img-3.png" alt="Ombre Eternal">
+                <div class="tp-meta">
+                  <div class="tp-title">Ombre Eternal</div>
+                </div>
+                <a class="tp-btn" href="https://oudofemirates.com/shop/ombre-eternal/">Buy Now</a>
+              </div>
+              <div class="tp-card">
+                
+                <img src="./images/top-picks-img-4.png" alt="Baccarat 540">
+                <div class="tp-meta">
+                  <div class="tp-title">Roohan</div>
+                </div>
+                <a class="tp-btn" href="https://oudofemirates.com/shop/roohan/">Buy Now</a>
+              </div>
+              <div class="tp-card">
+               
+                <img src="./images/top-picks-img-5.png" alt="Dylan Blue Men">
+                <div class="tp-meta">
+                  <div class="tp-title">Summaq</div>
+                </div>
+                <a class="tp-btn" href="https://oudofemirates.com/shop/summaq/">Buy Now</a>
+              </div>
+              <div class="tp-card">
+                
+                <img src="./images/top-picks-img-6.png" alt="Dylan Blue Men">
+                <div class="tp-meta">
+                  <div class="tp-title">Arabian Oud</div>
+                </div>
+                <a class="tp-btn" href="https://oudofemirates.com/shop/arabian-oud/">Buy Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+  <section class="lottie-sec">
+    <div class="lottie-container">
+        <!-- <div id="lottie-container"></div> -->
+         <h2>Fragrance <span>Pyramid</span></h2>
+         <img src="./images/pyramid.png" alt="" srcset="">
+  </section>
+
+
+  <section class="best-seller-sec">
+    <div class="container">
+        <h2>Best <span>Sellers</span></h2>
+        <div class="card-row">
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/most-wanted/">
+                    <img src="./images/Most Wanted PNG.png"/>
+                    <div class="card-content">
+                        <p>Most Wanted</p>
+                    </div>
+                </a>
+                
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/amira/">
+                <img src="./images/Amira.png"/>
+                <div class="card-content">
+                    <p>Amira</p>
+                </div>
+            </a>
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/fairooz/">
+                <img src="./images/Fairooz.png"/>
+                <div class="card-content">
+                    <p>Fairooz</p>
+                </div>
+            </a>
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/roohan/">
+                <img src="./images/Roohan.png"/>
+                <div class="card-content">
+                    <p>Roohan</p>
+                </div>
+            </a>
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/dylan-blue-men/">
+                <img src="./images/Dylan Blue Men.png"/>
+                <div class="card-content">
+                    <p>Dylan Blue Men</p>
+                </div>
+            </a>
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/imperial-valley/">
+                <img src="./images/Imperial Valley.png"/>
+                <div class="card-content">
+                    <p>Imperial Valley</p>
+                </div>
+            </a>
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/madawi/">
+                <img src="./images/Madawi.png"/>
+                <div class="card-content">
+                    <p>Madawi</p>
+                </div>
+            </a>
+            </div>
+            <div class="best-card-col">
+                <a href="https://oudofemirates.com/shop/mukhallat/">
+                <img src="./images/Mukhallat.png"/>
+                <div class="card-content">
+                    <p>Mukhallat</p>
+                </div>
+            </a>
             </div>
         </div>
-    </section>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+        <h2 class="footer-title">Indulge in <span>Luxury </span>Scents</h2>
+        <p class="footer-content">Discover the perfect fragrance to suit your style. Shop our exclusive collection now.</p>
+        <p class="explore-btn"><a href="https://oudofemirates.com/shop">Explore</a></p>
 
-    <script src="script.js"></script>
+        <!-- Desktop Privacy Wrapper -->
+        <div class="privacy-wrapper desktop-privacy">
+            <p>PRIVACY POLICY</p>
+            <p>FAQs</p>
+            <p>TERMS OF SERVICE</p>
+        </div>
+
+        <!-- Mobile Quick Links Dropdown -->
+        <div class="mobile-quick-links">
+            <button class="quick-links-toggle" id="quickLinksToggle">
+                <span>Quick Links</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="quick-links-dropdown" id="quickLinksDropdown">
+                <p>PRIVACY POLICY</p>
+                <p>FAQs</p>
+                <p>TERMS OF SERVICE</p>
+            </div>
+        </div>
+        <div class="footer-logo">
+            <a href="#"><img src="./images/facebook.png" alt="facebook"></a>
+            <a href="#"><img src="./images/instagram.png" alt="instagram"></a>
+            <a href="#"><img src="./images/twitter.png" alt="twitter"></a>
+        </div>
+        <p class="footer-copyright-text">© 2025  Oud Of Emirates. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+
+    function isMobile() {
+      return window.innerWidth <= 768; // consider <=768px as mobile
+    }
+
+    let currentIndex = 0;
+    gsap.registerPlugin(ScrollTrigger);
+  
+    window.addEventListener("load", () => {
+      const bottle = document.getElementById("bottle6");
+      const leftCol = document.getElementById("leftCol");
+      const dummyBottle = document.getElementById("bottleDummy");
+      const slidesWrapper = document.querySelector('.slides-wrapper');
+      const prevBtn = document.getElementById('arrowPrev');
+      const nextBtn = document.getElementById('arrowNext');
+
+      let slideIndex = 0;
+      const totalSlides = document.querySelectorAll('.slide').length;
+
+      slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+      function updateSlide() {
+        slidesWrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+        if (slideIndex === 1) {  // Attar slide
+         dummyBottle.style.display = "block";
+         bottle.style.display = "none";
+         fadeInWithDelay(dummyBottle, 500, 800);
+        } else {
+         dummyBottle.style.display = "none";
+         bottle.style.display = "block";
+         fadeInWithDelay(bottle, 500, 800);
+
+        }
+      }
+
+      function fadeInWithDelay(el, delay = 300, duration = 600) {
+  if (!el) return;
+
+  // Start hidden
+  el.style.opacity = 0;
+  el.style.display = 'block';
+  el.style.transition = `opacity ${duration}ms ease`;
+
+  // Trigger fade after delay
+  setTimeout(() => {
+    el.style.opacity = 1;
+  }, delay);
+}
+
+function fadeOut(el, duration = 400) {
+  if (!el) return;
+
+  el.style.transition = `opacity ${duration}ms ease`;
+  el.style.opacity = 0;
+
+  const handler = () => {
+    el.style.display = 'none';
+    el.removeEventListener('transitionend', handler);
+  };
+
+  el.addEventListener('transitionend', handler);
+}
+
+
+      prevBtn.addEventListener('click', () => {
+        slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+        updateSlide();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        slideIndex = (slideIndex + 1) % totalSlides;
+        updateSlide();
+      });
+  
+      function animateBottle() {
+  const bottle = document.getElementById("bottle6");
+  const leftCol = document.getElementById("leftCol");
+
+  if (!bottle || !leftCol) return; // exit if any element is missing
+
+//   if (window.innerWidth <= 768) {
+//     gsap.killTweensOf(bottle);
+//     ScrollTrigger.getAll().forEach(t => t.kill());
+//     return;
+//   }
+
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  const startRect = bottle.getBoundingClientRect();
+  const endRect = leftCol.getBoundingClientRect();
+
+  const startX = startRect.left + window.scrollX;
+  const startY = startRect.top + window.scrollY;
+  const endX = endRect.left + window.scrollX + endRect.width / 2 - startRect.width / 2;
+  const endY = endRect.top + window.scrollY + endRect.height / 2 - startRect.height / 2;
+
+  gsap.set(bottle, { x: 0, y: 0, scale: 1 });
+
+  gsap.to(bottle, {
+    x: endX - startX,
+    y: endY - startY,
+    scale: 1.5,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".hero-sub-title",
+      start: window.innerWidth <= 768 ? "top 60%" : "top top",
+      end: window.innerWidth <= 768 ? "+=500" : "+=500",
+    //   end: "+=500",
+      scrub: true,
+    //   once: true,
+      onLeave: () => {
+         // Fade in dummy bottle in banner
+        gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
+        // gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+        // Keep animated bottle in its new position
+        gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: 1.5 });
+      },
+      invalidateOnRefresh: true
+    }
+  });
+
+
+}
+  
+      animateBottle();
+      window.addEventListener("resize", animateBottle);
+
+
+      function render(state){
+        // Update heading and description with smooth animation
+        gsap.to(headingEl, {opacity: 0, y: 10, duration: 0.2, onComplete: () => {
+          headingEl.textContent = state.heading;
+          gsap.to(headingEl, {opacity: 1, y: 0, duration: 0.3});
+        }});
+        
+        gsap.to(descriptionEl, {opacity: 0, y: 10, duration: 0.2, onComplete: () => {
+          descriptionEl.textContent = state.description;
+          gsap.to(descriptionEl, {opacity: 1, y: 0, duration: 0.3});
+        }});
+
+        // Update section-two bottle
+        staticBottle.src = state.bottleSrc;
+
+        // Update banner bottle (#bottle6)
+        const bannerBottle = document.getElementById('bottle6');
+        if (bannerBottle) bannerBottle.src = state.bottleSrc;
+
+        // Update Top Picks
+        const cards = Array.from(topPicksTrack.querySelectorAll('.tp-card'));
+        state.topPicks.forEach((item, i) => {
+          const card = cards[i];
+          if (!card) return;
+          card.querySelector('img').src = item.img;
+          card.querySelector('.tp-title').textContent = item.title;
+        //   card.querySelector('.tp-price').textContent = item.price;
+        });
+
+        gsap.fromTo(staticBottle, {opacity:0.7, scale:0.98}, {opacity:1, scale:1, duration:0.35});
+      }
+      
+      // Section two reveal on scroll (left bottle area and right text)
+      gsap.utils.toArray('.section-two .right-col > *, .section-two .left-col').forEach((el, idx) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 24,
+          duration: 0.6,
+          ease: 'power2.out',
+          delay: idx * 0.05,
+          scrollTrigger: {
+            trigger: '.section-two',
+            start: 'top bottom',
+            end: 'top center',
+            toggleActions: 'play none none reverse'
+          }
+        });
+      });
+      
+      // Top Picks cards
+      gsap.utils.toArray('.top-picks-sec .tp-card').forEach((card, i) => {
+        gsap.fromTo(card,
+        { opacity: 0, y: 24 },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            delay: i * 0.05,
+            scrollTrigger: {
+            trigger: card,
+            start: 'top 90%',
+            toggleActions: "play none none none",
+            once: true
+            }
+        }
+        );
+      });
+      
+      // Best seller cards
+      gsap.utils.toArray('.best-seller-sec .best-card-col').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 84,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 70%'
+          }
+        });
+      });
+
+      // Pyramid sec
+      gsap.utils.toArray('.lottie-sec').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 84,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 70%'
+          }
+        });
+      });
+
+      // Hero title 
+      gsap.utils.toArray('.hero-title ,.hero-sub-title').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 84,
+          duration: 0.9,
+          ease: 'power2.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 50%'
+          }
+        });
+      });
+
+      // Footer 
+      gsap.utils.toArray('.footer .footer-title').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 84,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: i * 0.06,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 75%'
+          }
+        });
+      });
+      gsap.utils.toArray('.footer .footer-content').forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 54,
+          duration: 1,
+          ease: 'power2.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 65%'
+          }
+        });
+      });
+
+      // Mobile fallback to ensure visibility (avoid elements stuck at opacity 0)
+      function ensureMobileVisibility(){
+        if (window.innerWidth <= 768) {
+          const selectors = [
+            '.top-picks-sec .tp-card',
+            '.best-seller-sec .best-card-col',
+            '.hero-title',
+            '.hero-sub-title',
+            '.footer .footer-title',
+            '.footer .footer-content',
+            '.section-two .right-col > *',
+            '.section-two .left-col',
+            '.lottie-sec'
+          ];
+          selectors.forEach(sel => {
+            gsap.set(sel, { opacity: 1, x: 0, y: 0, clearProps: 'all' });
+          });
+        }
+      }
+      ensureMobileVisibility();
+      window.addEventListener('resize', ensureMobileVisibility);
+    });
+
+    // Simple 2-slide toggler (Perfume <-> Attar)
+    (function(){
+        const PRODUCT_STATES = [
+  {
+    key: 'perfume',
+    heading: 'EAU DE PARFUM',
+    description: 'Crafted with exquisite blends of oud, florals, spices, and woods, our perfumes embody luxury and sophistication. Each fragrance is designed to leave a lasting impression that complements your personality. They are perfect for everyday wear or special occasions.',
+    mobileDescription: 'Exquisitely crafted with oud, florals, spices, and woods, our perfumes exude luxury, sophistication, and timeless allure for every occasion.',
+    bottleSrc: './images/bottel-img-4.png',
+    topPicks: [
+      {img:'./images/top-picks-img-1.png', title:'Deja Vu', price:'₹3,999/-', link:'https://oudofemirates.com/shop/deja-vu/'},
+      {img:'./images/top-picks-img-2.png', title:'Fairooz', price:'₹3,999/-', link:'https://oudofemirates.com/shop/fairooz/'},
+      {img:'./images/top-picks-img-3.png', title:'Ombre Eternal', price:'₹4,999/-', link:'https://oudofemirates.com/shop/ombre-eternal/'},
+      {img:'./images/top-picks-img-4.png', title:'Roohan', price:'₹4,999/-', link:'https://oudofemirates.com/shop/roohan/'},
+      {img:'./images/top-picks-img-5.png', title:'Summaq', price:'₹2,999/-', link:'https://oudofemirates.com/shop/summaq/'},
+      {img:'./images/top-picks-img-6.png', title:'Arabian Oud', price:'₹2,999/-', link:'https://oudofemirates.com/shop/arabian-oud/'},
+
+    ]
+  },
+  {
+    key: 'attar',
+    heading: 'ESSENCE OF ATTAR',
+    description: 'Blended with the richness of oud, florals, and precious woods, our attars capture the essence of timeless tradition and luxury. Each fragrance is concentrated and long-lasting, designed to leave an unforgettable aura that resonates with elegance and individuality. Perfect for those who appreciate heritage infused with sophistication.',
+    bottleSrc: './images/bottel-img-1.png',
+    mobileDescription: 'Blended with rich oud, florals, and woods, our attars embody timeless tradition, luxury, and enduring elegance with sophistication.',
+    topPicks: [
+      {img:'./images/sabaya.webp', title:'Sabaya', price:'₹999/-', link:'https://oudofemirates.com/shop/sabaya/'},
+      {img:'./images/chanel-5.webp', title:'Chanel 5', price:'₹999/-', link:'https://oudofemirates.com/shop/channel-5/'},
+      {img:'./images/4-1.webp', title:'Imperial Valley', price:'₹999/-', link:'https://oudofemirates.com/shop/imperial-valley/'},
+      {img:'./images/5.webp', title:'Black Montale', price:'₹999/-', link:'https://oudofemirates.com/shop/black-montale/'},
+      {img:'./images/13.webp', title:'Sauvage', price:'₹999/-', link:'https://oudofemirates.com/shop/sauvage/'},
+      {img:'./images/br-540.webp', title:'BR 540', price:'₹999/-', link:'https://oudofemirates.com/shop/br-540/'}
+    ]
+  }
+];
+
+
+      const prevBtn = document.getElementById('arrowPrev');
+      const nextBtn = document.getElementById('arrowNext');
+      const headingEl = document.getElementById('productHeading');
+      const descriptionEl = document.getElementById('productDescription');
+      let slideIndex = 0;
+      // Inside your render() function:
+      const slides = document.querySelectorAll('.slide');
+
+      const staticBottle = slides[slideIndex].querySelector('.mobile-static-bottle');
+
+      const topPicksTrack = document.querySelector('.top-picks-slider .tp-track');
+
+      if (!prevBtn || !nextBtn || !headingEl || !descriptionEl || !staticBottle || !topPicksTrack) return;
+
+       // 0: perfume, 1: attar
+
+      function render(state, currentSlide){
+        // Update heading text (preserve arrows span)
+        const span = headingEl.querySelector('span');
+        headingEl.childNodes[0].nodeValue = state.heading + ' ';
+
+        // descriptionEl.textContent = state.description;
+        if(isMobile()){
+          descriptionEl.innerHTML = state.mobileDescription ;
+        }else{
+          descriptionEl.innerHTML = state.description;
+        }
+       // Get the bottle in the current active slide
+        const staticBottle = slides[slideIndex].querySelector('.mobile-static-bottle');
+        if (staticBottle) staticBottle.src = state.bottleSrc;
+
+        const bannerBottle5 = document.getElementById('bottle6');
+        if (bannerBottle5) bannerBottle5.src = state.bottleSrc;
+
+        // Update Top Picks cards
+        const cards = Array.from(topPicksTrack.querySelectorAll('.tp-card'));
+        const data = state.topPicks;
+        cards.forEach((card, i)=>{
+          const img = card.querySelector('img');
+          const title = card.querySelector('.tp-title');
+        //   const price = card.querySelector('.tp-price');
+          const btn = card.querySelector('.tp-btn');
+          if (data[i]){
+            img.src = data[i].img;
+            img.alt = data[i].title;
+            title.textContent = data[i].title;
+            // price.textContent = data[i].price;
+            btn.href = data[i].link;
+          }
+        });
+
+        // small feedback animation
+        // gsap.fromTo(headingEl, {opacity:0, y:8}, {opacity:1, y:0, duration:0.35});
+        gsap.fromTo(staticBottle, {opacity:0.7, scale:0.98}, {opacity:1, scale:1, duration:0.35});
+      }
+
+      function go(delta){
+        slideIndex = (slideIndex + delta + PRODUCT_STATES.length) % PRODUCT_STATES.length;
+        render(PRODUCT_STATES[slideIndex]);
+      }
+
+      prevBtn.addEventListener('click', ()=> go(-1));
+      nextBtn.addEventListener('click', ()=> go(1));
+
+      // init
+      render(PRODUCT_STATES[slideIndex]);
+    })();
+    window.addEventListener("load", () => {
+  ScrollTrigger.refresh();
+});
+
+    // Mobile Menu Toggle
+    (function(){
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      if (!mobileMenuToggle || !mobileMenu) return;
+      
+      mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      // Close menu when clicking on links
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenuToggle.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Close menu when clicking outside
+      mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+          mobileMenuToggle.classList.remove('active');
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+
+    // Top Picks slider logic
+    (function(){
+      const slider = document.getElementById('topPicks');
+      if(!slider) return;
+      const track = slider.querySelector('.tp-track');
+      // let index = 0;
+
+      function cardsPerView(){
+        if (window.innerWidth <= 600) return 1;
+        if (window.innerWidth <= 992) return 2;
+        return 3;
+      }
+
+      function maxIndex(){
+        const total = track.children.length;
+        const visible = cardsPerView();
+        return isMobile() ? Math.max(0, total - visible) - 1 : Math.max(0, total - visible) ;
+      }
+
+      function update(){
+        const cw = track.children[0].getBoundingClientRect().width + 24; // including gap
+        track.style.transition = 'transform 400ms ease';
+        track.style.transform = `translateX(${-currentIndex * cw}px)`;
+      }
+
+      // drag / swipe
+      let startX = 0; let currentX = 0; let dragging = false; let baseOffset = 0;
+      const viewport = slider.querySelector('.tp-viewport');
+      function getCardWidth(){ return track.children[0].getBoundingClientRect().width + 24; }
+      function setTranslate(px){ track.style.transform = `translateX(${px}px)`; }
+
+      viewport.addEventListener('pointerdown', (e)=>{
+        if (e.target.closest('a')) return;
+        dragging = true; startX = e.clientX; currentX = startX; viewport.setPointerCapture(e.pointerId);
+        stopAuto();
+        const cw = getCardWidth();
+        baseOffset = -(currentIndex * cw);
+        track.style.transition = 'none';
+      });
+      viewport.addEventListener('pointermove', (e)=>{ if(!dragging) return; currentX = e.clientX; const dx = currentX - startX; setTranslate(baseOffset + dx); });
+      function endDrag(){
+        if(!dragging) return; dragging = false; track.style.transition = 'transform 400ms ease';
+        const dx = currentX - startX; const cw = getCardWidth();
+        if (dx > cw/4) { currentIndex = Math.max(0, currentIndex - 1); }
+        else if (dx < -cw/4) { currentIndex = Math.min(maxIndex(), currentIndex + 1); }
+        update(); startAuto();
+      }
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+
+      // autoplay
+      let autoTimer = null;
+      function startAuto(){
+        stopAuto();
+        autoTimer = setInterval(()=>{
+         
+          currentIndex = (currentIndex >= maxIndex()) ? 0 : currentIndex + 1;
+          update();
+        }, 2500);
+      }
+      function stopAuto(){ if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+      slider.addEventListener('mouseenter', stopAuto);
+      slider.addEventListener('mouseleave', startAuto);
+      window.addEventListener('resize', update);
+      update();
+      startAuto();
+    })();
+
+    // Quick Links Dropdown Toggle
+    (function(){
+      const quickLinksToggle = document.getElementById('quickLinksToggle');
+      const quickLinksDropdown = document.getElementById('quickLinksDropdown');
+      
+      if (!quickLinksToggle || !quickLinksDropdown) return;
+      
+      quickLinksToggle.addEventListener('click', () => {
+        quickLinksToggle.classList.toggle('active');
+        quickLinksDropdown.classList.toggle('active');
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!quickLinksToggle.contains(e.target) && !quickLinksDropdown.contains(e.target)) {
+          quickLinksToggle.classList.remove('active');
+          quickLinksDropdown.classList.remove('active');
+        }
+      });
+    })();
+  </script>
+
+<script>
+  const topPicksSlider = document.getElementById('topPicks');
+  const tpTrack = document.getElementById('tpTrack');
+  const tpPrev = document.getElementById('tpPrev');
+  const tpNext = document.getElementById('tpNext');
+
+  if (topPicksSlider && tpTrack && tpPrev && tpNext) {
+
+    const cards = tpTrack.querySelectorAll('.tp-card');
+    const totalCards = cards.length;
+
+    // spacing (card width + gap)
+    const cardWidth = cards[0].offsetWidth + 35;
+
+    function slideToIndex(index) {
+      if (index < 0) index = 0; // stop at first card
+      if (index >= totalCards) index = totalCards - 1; // stop at last card
+      currentIndex = index;
+
+      tpTrack.style.transition = 'transform 0.5s ease';
+      tpTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+    const cardToCalculate = isMobile() ? 4 : 3 
+    // Next button
+    tpNext.addEventListener('click', () => {
+      if(currentIndex < cardToCalculate){
+        slideToIndex(currentIndex + 1);
+      }else{
+        slideToIndex(0);
+      }
+    });
+
+    // Previous button
+    tpPrev.addEventListener('click', () => {
+      slideToIndex(currentIndex - 1);
+    });
+
+    // Touch/swipe support
+    let startX = 0;
+    let isDragging = false;
+
+    tpTrack.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    tpTrack.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const endX = e.changedTouches[0].clientX;
+      const diffX = startX - endX;
+
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          // swipe left
+            if(isMobile() && currentIndex == 4){
+                return false;
+            }
+          slideToIndex(currentIndex + 1);
+        } else {
+          // swipe right
+          slideToIndex(currentIndex - 1);
+        }
+      }
+    });
+  }
+
+</script>
 </body>
 </html>

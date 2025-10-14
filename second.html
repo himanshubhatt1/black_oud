@@ -8,11 +8,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <link rel="stylesheet" href="style.css">
-  <style>
-
-    
-
-  </style>
 </head>
 <body>
     <header class="header">
@@ -79,7 +74,7 @@
                 <img src="./images/bottel-img-1.png" class="bottle" alt="Bottle 1">
                 <img src="./images/bottel-img-2.png" class="bottle" alt="Bottle 2">
                 <img src="./images/bottel-img-5.png" class="bottle" alt="Bottle 3">
-                <img src="./images/bottel-img-3.png" class="bottle" alt="Bottle 4">
+                <img src="./images/bottel-img-3.png" class="bottle hideMob" alt="Bottle 4">
                 <img src="./images/bottel-img-6.png" class="bottle hideMob" id="bottle5" alt="Bottle 5">
                 <span class="bottle-img-wrap" style="position: relative;">
                     <img src="./images/bottel-img-4.png" class="bottle" id="bottle6" alt="Bottle 6">
@@ -382,11 +377,8 @@ function fadeOut(el, duration = 400) {
 
   if (!bottle || !leftCol) return; // exit if any element is missing
 
-  if (window.innerWidth <= 768) {
-    gsap.killTweensOf(bottle);
-    ScrollTrigger.getAll().forEach(t => t.kill());
-    return;
-  }
+  // Mobile optimization: reduce animation complexity but keep functionality
+  const isMobile = window.innerWidth <= 768;
 
   ScrollTrigger.getAll().forEach(t => t.kill());
 
@@ -403,22 +395,30 @@ function fadeOut(el, duration = 400) {
   gsap.to(bottle, {
     x: endX - startX,
     y: endY - startY,
-    scale: 1.5,
-    ease: "none",
+    scale: isMobile ? 1.2 : 1.5, // Smaller scale on mobile for better performance
+    ease: isMobile ? "power2.out" : "none", // Smoother easing on mobile
     scrollTrigger: {
       trigger: ".hero-sub-title",
       start: "top top",
-      end: "+=500",
-      scrub: true,
-    //   once: true,
+      end: isMobile ? "+=300" : "+=500", // Shorter animation distance on mobile
+      scrub: isMobile ? 0.5 : true, // Less aggressive scrubbing on mobile
       onLeave: () => {
          // Fade in dummy bottle in banner
         gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
-        // gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+        if(isMobile){
+          bottle.style.maxWidth = "100px";
+          bottle.style.transition = "all 0.7s ease";
+        }
         // Keep animated bottle in its new position
-        gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: 1.5 });
+        gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: isMobile ? 1.2 : 1.5 });
+      },
+      onEnterBack: () => {
+      if (isMobile) {
+        bottle.style.transition = "all 0.7s ease";
+        bottle.style.maxWidth = ""; // restore to initial width
       }
     }
+  },
   });
 }
 
@@ -427,6 +427,61 @@ function fadeOut(el, duration = 400) {
   
       animateBottle();
       window.addEventListener("resize", animateBottle);
+
+      // Add touch support for mobile bottle interaction
+      if (isMobile) {
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isTouching = false;
+        let animationFrame = null;
+
+        document.addEventListener('touchstart', (e) => {
+          if (e.target.closest('.bottle')) {
+            isTouching = true;
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+          }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+          if (isTouching && e.target.closest('.bottle')) {
+            // Cancel previous animation frame for better performance
+            if (animationFrame) {
+              cancelAnimationFrame(animationFrame);
+            }
+            
+            animationFrame = requestAnimationFrame(() => {
+              const touchY = e.touches[0].clientY;
+              const touchX = e.touches[0].clientX;
+              const deltaY = touchY - touchStartY;
+              const deltaX = touchX - touchStartX;
+              
+              // Add subtle parallax effect on touch
+              const bottle = e.target.closest('.bottle');
+              if (bottle) {
+                const moveX = deltaX * 0.1;
+                const moveY = deltaY * 0.1;
+                bottle.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+              }
+            });
+          }
+        }, { passive: true });
+
+        document.addEventListener('touchend', () => {
+          if (isTouching) {
+            isTouching = false;
+            // Reset bottle position with smooth transition
+            const bottles = document.querySelectorAll('.bottle');
+            bottles.forEach(bottle => {
+              bottle.style.transition = 'transform 0.3s ease';
+              bottle.style.transform = 'translate3d(0, 0, 0)';
+              setTimeout(() => {
+                bottle.style.transition = '';
+              }, 300);
+            });
+          }
+        }, { passive: true });
+      }
 
 
       function render(state){
