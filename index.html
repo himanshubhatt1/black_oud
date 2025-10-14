@@ -312,6 +312,11 @@
 
     let currentIndex = 0;
     gsap.registerPlugin(ScrollTrigger);
+    // Global ScrollTrigger config for smoother mobile performance
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+  });
   
     window.addEventListener("load", () => {
       const bottle = document.getElementById("bottle6");
@@ -379,58 +384,77 @@ function fadeOut(el, duration = 400) {
         updateSlide();
       });
   
-      function animateBottle() {
-  const bottle = document.getElementById("bottle6");
-  const leftCol = document.getElementById("leftCol");
+       // Function to run the bottle animation
+  function animateBottle() {
+    const bottle = document.getElementById("bottle6");
+    const leftCol = document.getElementById("leftCol");
+    const dummyBottle = document.getElementById("bottleDummy");
 
-  if (!bottle || !leftCol) return; // exit if any element is missing
+    if (!bottle || !leftCol || !dummyBottle) return;
 
-//   if (window.innerWidth <= 768) {
-//     gsap.killTweensOf(bottle);
-//     ScrollTrigger.getAll().forEach(t => t.kill());
-//     return;
-//   }
+    const isMobile = isMobile();
 
-  ScrollTrigger.getAll().forEach(t => t.kill());
+    // Kill any previous ScrollTriggers before re-init
+    ScrollTrigger.getAll().forEach(t => t.kill());
 
-  const startRect = bottle.getBoundingClientRect();
-  const endRect = leftCol.getBoundingClientRect();
+    // Apply GPU acceleration
+    [bottle, dummyBottle].forEach(el => {
+      el.style.willChange = "transform, opacity";
+      el.style.backfaceVisibility = "hidden";
+      el.style.transform = "translateZ(0)";
+    });
 
-  const startX = startRect.left + window.scrollX;
-  const startY = startRect.top + window.scrollY;
-  const endX = endRect.left + window.scrollX + endRect.width / 2 - startRect.width / 2;
-  const endY = endRect.top + window.scrollY + endRect.height / 2 - startRect.height / 2;
+    // Get start and end positions
+    const startRect = bottle.getBoundingClientRect();
+    const endRect = leftCol.getBoundingClientRect();
+    const startX = startRect.left + window.scrollX;
+    const startY = startRect.top + window.scrollY;
+    const endX = endRect.left + window.scrollX + endRect.width / 2 - startRect.width / 2;
+    const endY = endRect.top + window.scrollY + endRect.height / 2 - startRect.height / 2;
 
-  gsap.set(bottle, { x: 0, y: 0, scale: 1 });
+    // Reset initial transform
+    gsap.set(bottle, { x: 0, y: 0, scale: 1, force3D: true });
 
-  gsap.to(bottle, {
-    x: endX - startX,
-    y: endY - startY,
-    scale: 1.5,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero-sub-title",
-      start: window.innerWidth <= 768 ? "top 60%" : "top top",
-      end: window.innerWidth <= 768 ? "+=500" : "+=500",
-    //   end: "+=500",
-      scrub: true,
-    //   once: true,
-      onLeave: () => {
-         // Fade in dummy bottle in banner
-        gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
-        // gsap.fromTo(dummyBottle, { opacity: 0 }, { opacity: 1, duration: 0.4 });
-        // Keep animated bottle in its new position
-        gsap.set(bottle, { x: endX - startX, y: endY - startY, scale: 1.5 });
+    // Main scroll animation
+    gsap.to(bottle, {
+      x: endX - startX,
+      y: endY - startY,
+      scale: isMobile ? 1.2 : 1.5,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: ".hero-sub-title",
+        start: isMobile ? "top 70%" : "top top",
+        end: isMobile ? "+=300" : "+=500",
+        scrub: isMobile ? 0.3 : true,
+        onUpdate: self => {
+          // smoother opacity sync
+          dummyBottle.style.opacity = Math.min(1, self.progress * 2);
+        },
+        onLeave: () => {
+          // shrink bottle on scroll down (mobile only)
+          if (isMobile) {
+            bottle.style.transition = "all 0.7s ease";
+            bottle.style.maxWidth = "100px";
+          }
+        },
+        onEnterBack: () => {
+          // restore bottle on scroll up
+          if (isMobile) {
+            bottle.style.transition = "all 0.7s ease";
+            bottle.style.maxWidth = "";
+          }
+        },
       },
-      invalidateOnRefresh: true
-    }
-  });
-
-
-}
+    });
+  }
   
       animateBottle();
-      window.addEventListener("resize", animateBottle);
+       // Re-run when resizing between mobile/desktop
+  window.addEventListener("resize", function () {
+    clearTimeout(window._bottleResizeTimeout);
+    window._bottleResizeTimeout = setTimeout(animateBottle, 300);
+  });
+    //   window.addEventListener("resize", animateBottle);
 
 
       function render(state){
@@ -702,9 +726,6 @@ function fadeOut(el, duration = 400) {
       // init
       render(PRODUCT_STATES[slideIndex]);
     })();
-    window.addEventListener("load", () => {
-  ScrollTrigger.refresh();
-});
 
     // Mobile Menu Toggle
     (function(){

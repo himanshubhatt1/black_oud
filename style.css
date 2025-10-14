@@ -6,9 +6,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-html {
+html, body{
+  -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+}
+html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -19,6 +21,11 @@ body {
   color: #ffffff;
   overflow-x: hidden;
   line-height: 1.6;
+}
+#bottle6, #bottleDummy {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 .video-banner {
   position: relative;
