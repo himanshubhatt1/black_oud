@@ -385,75 +385,72 @@ function fadeOut(el, duration = 400) {
       });
   
        // Function to run the bottle animation
-  function animateBottle() {
-    const bottle = document.getElementById("bottle6");
-    const leftCol = document.getElementById("leftCol");
-    const dummyBottle = document.getElementById("bottleDummy");
+       function animateBottle() {
+  // Skip animation if prefers reduced motion
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    if (!bottle || !leftCol || !dummyBottle) return;
+  // Kill previous triggers if any
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-    const isMobile = isMobile();
+  const bottle = document.querySelector("#bottle6");
+  const dummyBottle = document.querySelector("#bottleDummy");
+  if (!bottle || !dummyBottle) return;
 
-    // Kill any previous ScrollTriggers before re-init
-    ScrollTrigger.getAll().forEach(t => t.kill());
+  const mobile = isMobile();
+  const startX = 0, startY = 0;
+  const endX = 0, endY = -100;
 
-    // Apply GPU acceleration
-    [bottle, dummyBottle].forEach(el => {
-      el.style.willChange = "transform, opacity";
-      el.style.backfaceVisibility = "hidden";
-      el.style.transform = "translateZ(0)";
-    });
+  // Reset styles
+  bottle.style.transition = "all 0.7s ease";
+  bottle.style.maxWidth = "";
 
-    // Get start and end positions
-    const startRect = bottle.getBoundingClientRect();
-    const endRect = leftCol.getBoundingClientRect();
-    const startX = startRect.left + window.scrollX;
-    const startY = startRect.top + window.scrollY;
-    const endX = endRect.left + window.scrollX + endRect.width / 2 - startRect.width / 2;
-    const endY = endRect.top + window.scrollY + endRect.height / 2 - startRect.height / 2;
+  gsap.set(dummyBottle, { opacity: 0 });
 
-    // Reset initial transform
-    gsap.set(bottle, { x: 0, y: 0, scale: 1, force3D: true });
+  ScrollTrigger.create({
+    trigger: ".bottle-section",
+    start: mobile ? "top center" : "top 80%",
+    end: mobile ? "bottom top" : "bottom 20%",
+    scrub: true,
+    markers: false,
+    onUpdate: self => {
+      const progress = self.progress;
 
-    // Main scroll animation
-    gsap.to(bottle, {
-      x: endX - startX,
-      y: endY - startY,
-      scale: isMobile ? 1.2 : 1.5,
-      ease: "power1.out",
-      scrollTrigger: {
-        trigger: ".hero-sub-title",
-        start: isMobile ? "top 70%" : "top top",
-        end: isMobile ? "+=300" : "+=500",
-        scrub: isMobile ? 0.3 : true,
-        onUpdate: self => {
-          // smoother opacity sync
-          dummyBottle.style.opacity = Math.min(1, self.progress * 2);
-        },
-        onLeave: () => {
-          // shrink bottle on scroll down (mobile only)
-          if (isMobile) {
-            bottle.style.transition = "all 0.7s ease";
-            bottle.style.maxWidth = "100px";
-          }
-        },
-        onEnterBack: () => {
-          // restore bottle on scroll up
-          if (isMobile) {
-            bottle.style.transition = "all 0.7s ease";
-            bottle.style.maxWidth = "";
-          }
-        },
-      },
-    });
-  }
+      gsap.to(bottle, {
+        x: endX * progress,
+        y: endY * progress,
+        scale: gsap.utils.interpolate(mobile ? 1 : 1, mobile ? 1.2 : 1.5, progress),
+        duration: 0.3,
+        ease: "power1.out",
+      });
+    },
+    onLeave: () => {
+      gsap.to(dummyBottle, { opacity: 1, duration: 0.4 });
+      if (mobile) {
+        bottle.style.transition = "all 0.7s ease";
+        bottle.style.maxWidth = "100px"; // shrink when leaving
+      }
+    },
+    onEnterBack: () => {
+      if (mobile) {
+        bottle.style.transition = "all 0.7s ease";
+        bottle.style.maxWidth = ""; // restore on scroll up
+      }
+      gsap.to(dummyBottle, { opacity: 0, duration: 0.3 });
+    },
+  });
+}
+
   
       animateBottle();
        // Re-run when resizing between mobile/desktop
-  window.addEventListener("resize", function () {
-    clearTimeout(window._bottleResizeTimeout);
-    window._bottleResizeTimeout = setTimeout(animateBottle, 300);
-  });
+       window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    ScrollTrigger.refresh();
+    animateBottle();
+  }, 300);
+});
+
     //   window.addEventListener("resize", animateBottle);
 
 
